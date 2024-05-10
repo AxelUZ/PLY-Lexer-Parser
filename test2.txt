@@ -12,13 +12,7 @@ void calculate(x: int, y: float) [
 ];
 
 main {
-    calculate(x, y);
+    print("Hello, World!");
 }
 
 end
-
-
-
-
-
-

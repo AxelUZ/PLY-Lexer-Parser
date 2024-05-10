@@ -1,9 +1,39 @@
 import ply.lex as lex
 
 tokens = [
-    'PROGRAM', 'VAR', 'INT', 'FLOAT', 'PRINT', 'IF', 'ELSE', 'WHILE', 'DO', 'VOID', 'MAIN', 'END',
-    'SEMICOLON', 'COMMA', 'COLON', 'LPAREN', 'RPAREN', 'LBRACE', 'RBRACE', 'LBRACKET', 'RBRACKET',
-    'EQUAL', 'GT', 'LT', 'NE', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'ID', 'CTE_INT', 'CTE_FLOAT', 'CTE_STRING'
+    'PROGRAM',
+    'VAR',
+    'INT',
+    'FLOAT',
+    'PRINT',
+    'IF',
+    'ELSE',
+    'WHILE',
+    'DO',
+    'VOID',
+    'MAIN',
+    'END',
+    'SEMICOLON',
+    'COMMA',
+    'COLON',
+    'LPAREN',
+    'RPAREN',
+    'LBRACE',
+    'RBRACE',
+    'LBRACKET',
+    'RBRACKET',
+    'EQUAL',
+    'GT',
+    'LT',
+    'NE',
+    'PLUS',
+    'MINUS',
+    'TIMES',
+    'DIVIDE',
+    'ID',
+    'CTE_INT',
+    'CTE_FLOAT',
+    'CTE_STRING'
 ]
 
 t_SEMICOLON = r';'

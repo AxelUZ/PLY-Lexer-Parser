@@ -17,7 +17,14 @@ To use this project, make sure you have Python installed on your system. Then, i
 pip install ply
 ```
 
+## Testing
+For both Lexer and Parser, run the files ```test_lexer.py``` or ```test_parser.py``` depending on which one you want to test. In the case of the Parser you can choose between the four test .txt files
+
 ## Documentation
 For more details on how PLY works and how you can extend or modify this project, see the [official PLY documentation](https://www.dabeaz.com/ply/ply.html).
+
+------------------------------
+| Developed by Axel Gael Uzeta Gómez |
+------------------------------
 
 
