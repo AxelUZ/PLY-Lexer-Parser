@@ -1,0 +1,120 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DO
+    GT
+    LBRACKET
+    LT
+    NE
+    RBRACKET
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM ID SEMICOLON optional_vars optional_funcs MAIN body END
+Rule 2     optional_vars -> vars
+Rule 3     optional_vars -> empty
+Rule 4     vars -> vars var_declaration
+Rule 5     vars -> var_declaration
+Rule 6     var_declaration -> VAR ID COLON type SEMICOLON
+Rule 7     type -> INT
+Rule 8     type -> FLOAT
+Rule 9     optional_funcs -> funcs
+Rule 10    optional_funcs -> empty
+Rule 11    funcs -> funcs func
+Rule 12    funcs -> func
+Rule 13    func -> VOID ID LPAREN optional_params RPAREN LBRACE body RBRACE
+Rule 14    optional_params -> params
+Rule 15    optional_params -> empty
+Rule 16    params -> params COMMA param
+Rule 17    params -> param
+Rule 18    param -> ID COLON type
+Rule 19    body -> LBRACE statements RBRACE
+Rule 20    statements -> statements statement
+Rule 21    statements -> statement
+Rule 22    statement -> assign
+Rule 23    statement -> print_stmt
+Rule 24    statement -> condition
+Rule 25    statement -> cycle
+Rule 26    statement -> func_call
+Rule 27    assign -> ID EQUAL expression SEMICOLON
+Rule 28    expression -> expression PLUS term
+Rule 29    expression -> expression MINUS term
+Rule 30    expression -> term
+Rule 31    term -> factor TIMES factor
+Rule 32    term -> factor DIVIDE factor
+Rule 33    term -> factor
+Rule 34    factor -> LPAREN expression RPAREN
+Rule 35    factor -> CTE_INT
+Rule 36    factor -> CTE_FLOAT
+Rule 37    factor -> ID
+Rule 38    print_stmt -> PRINT LPAREN CTE_STRING RPAREN SEMICOLON
+Rule 39    condition -> IF LPAREN expression RPAREN body ELSE body
+Rule 40    cycle -> WHILE LPAREN expression RPAREN body
+Rule 41    func_call -> ID LPAREN expression RPAREN SEMICOLON
+Rule 42    empty -> <empty>
+
+Terminals, with rules where they appear
+
+COLON                : 6 18
+COMMA                : 16
+CTE_FLOAT            : 36
+CTE_INT              : 35
+CTE_STRING           : 38
+DIVIDE               : 32
+DO                   : 
+ELSE                 : 39
+END                  : 1
+EQUAL                : 27
+FLOAT                : 8
+GT                   : 
+ID                   : 1 6 13 18 27 37 41
+IF                   : 39
+INT                  : 7
+LBRACE               : 13 19
+LBRACKET             : 
+LPAREN               : 13 34 38 39 40 41
+LT                   : 
+MAIN                 : 1
+MINUS                : 29
+NE                   : 
+PLUS                 : 28
+PRINT                : 38
+PROGRAM              : 1
+RBRACE               : 13 19
+RBRACKET             : 
+RPAREN               : 13 34 38 39 40 41
+SEMICOLON            : 1 6 27 38 41
+TIMES                : 31
+VAR                  : 6
+VOID                 : 13
+WHILE                : 40
+error                : 
+
+Nonterminals, with rules where they appear
+
+assign               : 22
+body                 : 1 13 39 39 40
+condition            : 24
+cycle                : 25
+empty                : 3 10 15
+expression           : 27 28 29 34 39 40 41
+factor               : 31 31 32 32 33
+func                 : 11 12
+func_call            : 26
+funcs                : 9 11
+optional_funcs       : 1
+optional_params      : 13
+optional_vars        : 1
+param                : 16 17
+params               : 14 16
+print_stmt           : 23
+program              : 0
+statement            : 20 21
+statements           : 19 20
+term                 : 28 29 30
+type                 : 6 18
+var_declaration      : 4 5
+vars                 : 2 4
+

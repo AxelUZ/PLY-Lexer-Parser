@@ -1,0 +1,10 @@
+program myProgram;
+
+var x: int;
+
+main {
+    x = 10;
+}
+
+end
+

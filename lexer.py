@@ -6,7 +6,6 @@ tokens = [
     'EQUAL', 'GT', 'LT', 'NE', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'ID', 'CTE_INT', 'CTE_FLOAT', 'CTE_STRING'
 ]
 
-# Reglas para símbolos simples
 t_SEMICOLON = r';'
 t_COMMA = r','
 t_COLON = r':'
@@ -25,10 +24,25 @@ t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 
-# Expresiones regulares para identificadores y constantes
+
+reserved = {
+    'program': 'PROGRAM',
+    'var': 'VAR',
+    'int': 'INT',
+    'float': 'FLOAT',
+    'print': 'PRINT',
+    'if': 'IF',
+    'else': 'ELSE',
+    'while': 'WHILE',
+    'do': 'DO',
+    'void': 'VOID',
+    'main': 'MAIN',
+    'end': 'END'
+}
+
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'ID')  # Check for reserved words
+    t.type = reserved.get(t.value, 'ID')
     return t
 
 
@@ -46,27 +60,22 @@ def t_CTE_INT(t):
 
 def t_CTE_STRING(t):
     r'\".*?\"'
-    t.value = t.value[1:-1]  # Remove quotation marks
+    t.value = t.value[1:-1]
     return t
 
-# Palabras reservadas
-reserved = {
-    'program': 'PROGRAM', 'var': 'VAR', 'int': 'INT', 'float': 'FLOAT',
-    'print': 'PRINT', 'if': 'IF', 'else': 'ELSE', 'while': 'WHILE',
-    'do': 'DO', 'void': 'VOID', 'main': 'MAIN', 'end': 'END'
-}
 
-# Ignorar espacios y tabs
-t_ignore  = ' \t'
+t_ignore = ' \t'
+
 
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
+
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
+
 # Build the lexer
 lexer = lex.lex()
-
