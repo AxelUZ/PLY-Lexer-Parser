@@ -196,9 +196,9 @@ def p_cte(p):
         | CTE_FLOAT
     '''
     if isinstance(p[1], int):
-        p[0] = ('cte_int', p[1])
+        p[0] = ('cte_int', int(p[1]))
     elif isinstance(p[1], float):
-        p[0] = ('cte_float', p[1])
+        p[0] = ('cte_float', float(p[1]))
 
 
 def p_empty(p):

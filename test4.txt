@@ -12,7 +12,9 @@ void calculate(x: int, y: float) [
 ];
 
 main {
-    do {z = x * 2} while (x > y);
+    do {
+        x = x + 1;
+    } while (x < 5);
 }
 
 end

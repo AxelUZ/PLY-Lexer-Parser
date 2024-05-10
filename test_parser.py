@@ -18,7 +18,7 @@ def main():
     option = input("Ingresa el número de tu opción: ")
 
     if option == "1":
-        file_path = 'test1.txt'
+        file_path = 'test.txt'
     elif option == "2":
         file_path = 'test2.txt'
     elif option == "3":
