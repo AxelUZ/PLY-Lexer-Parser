@@ -1,11 +1,10 @@
 from parser import parser
-from lexer import lexer
 from pprint import pprint
 
-def parse_program(file_path):
-    with open(file_path, 'r') as file:
+def parse_program(file_read):
+    with open(file_read, 'r') as file:
         program_code = file.read()
-    result = parser.parse(program_code, lexer=lexer)
+    result = parser.parse(program_code)
     return result
 
 def main():
