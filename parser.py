@@ -14,6 +14,7 @@ precedence = (
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON vars funcs MAIN body END'''
     p[0] = ('program', p[2], p[4], p[5], p[7])
+    print("Parsed Main: ", p[2], p[4], p[5], p[7])
 
 
 def p_vars(p):
@@ -23,8 +24,10 @@ def p_vars(p):
     '''
     if len(p) == 6:
         p[0] = [('var_declaration', p[2], p[4])]
+        print("Parsed Var declaration: ", p[2], p[4])
     else:
         p[0] = [('var_declaration', p[2], p[4])] + p[6]
+        print("Parsed Var declaration + Vars: ", p[2], p[4])
 
 
 def p_type(p):
@@ -37,7 +40,7 @@ def p_type(p):
 
 def p_body(p):
     '''
-    body : LBRACE statement RBRACE
+    body : LBRACE statements RBRACE
     '''
     p[0] = p[2]
 
@@ -50,8 +53,10 @@ def p_function_params(p):
     '''
     if len(p) == 4:
         p[0] = [(p[1], p[3])]
+        print("Params for a function: ", p[1], p[3])
     else:
         p[0] = p[1] + [(p[3], p[5])]
+        print("More params for a function: ", p[3], p[5])
 
 
 #1 func
@@ -61,12 +66,24 @@ def p_funcs(p):
           | VOID ID LPAREN function_params RPAREN LBRACKET vars body RBRACKET SEMICOLON funcs
           | VOID ID LPAREN RPAREN LBRACKET vars body RBRACKET SEMICOLON
           | VOID ID LPAREN RPAREN LBRACKET vars body RBRACKET SEMICOLON funcs
+          | VOID ID LPAREN function_params RPAREN LBRACKET body RBRACKET SEMICOLON
+          | VOID ID LPAREN function_params RPAREN LBRACKET body RBRACKET SEMICOLON funcs
+          | VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON
+          | VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON funcs
     '''
-    if len(p) == 8:
-        p[0] = ('function', p[2], p[4], p[6], p[7])
-    else:
-        p[0] = [('function', p[2], p[4], p[6], p[7])]
+    p[0] = [('function', p[2], p[4], p[6], p[7])]
+    print("Declare a function: ", p[2], p[4], p[6], p[7])
 
+
+def p_statements(p):
+    '''
+    statements : statement
+               | statements statement
+    '''
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[2]]
 
 def p_statement(p):
     '''
@@ -75,12 +92,14 @@ def p_statement(p):
               | cycle
               | f_call
               | print
+              | empty
+
     '''
     p[0] = p[1]
 
 
 def p_assign(p):
-    '''assign : ID EQUAL expression SEMICOLON'''
+    '''assign : ID EQUAL expression SEMICOLON '''
     p[0] = ('assign', p[1], p[3])
 
 
@@ -125,7 +144,7 @@ def p_optional_arguments(p):
 def p_print(p):
     '''
     print : PRINT LPAREN expression RPAREN SEMICOLON
-                    | PRINT LPAREN CTE_STRING RPAREN SEMICOLON
+          | PRINT LPAREN CTE_STRING RPAREN SEMICOLON
     '''
     if len(p) == 6:
         p[0] = ('print', p[3])

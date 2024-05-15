@@ -4,10 +4,10 @@ var x : int;
 var y : float;
 
 void calculate(x: int, y: float) [
-    var z : int;
-    var w : float;
     {
         print("The value of w is: ");
+
+        print("The value of x is: ");
     }
 ];
 
@@ -15,6 +15,7 @@ main {
     do {
         x = x + 1;
     } while (x < 5);
+
 }
 
 end

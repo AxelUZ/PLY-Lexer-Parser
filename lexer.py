@@ -1,5 +1,6 @@
 import ply.lex as lex
 
+#Lista de tokens
 tokens = [
     'PROGRAM',
     'VAR',
@@ -36,6 +37,7 @@ tokens = [
     'CTE_STRING'
 ]
 
+#Definicion de tokens
 t_SEMICOLON = r';'
 t_COMMA = r','
 t_COLON = r':'
@@ -54,7 +56,7 @@ t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'/'
 
-
+#Palabras reservadas
 reserved = {
     'program': 'PROGRAM',
     'var': 'VAR',
@@ -70,6 +72,7 @@ reserved = {
     'end': 'END'
 }
 
+#Definicion tokens complejos
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, 'ID')
