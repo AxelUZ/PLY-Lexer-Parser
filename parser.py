@@ -1,5 +1,10 @@
 import ply.yacc as yacc
 from lexer import tokens
+from function_directory import FunctionDirectory
+
+func_dir = FunctionDirectory()
+current_function = 'global'
+func_dir.add_function('global', 'void')
 
 precedence = (
     ('right', 'EQUAL'),
@@ -13,6 +18,8 @@ precedence = (
 
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON vars funcs MAIN body END'''
+    global current_function
+    current_function = 'global'
     p[0] = ('program', p[2], p[4], p[5], p[7])
     print("Parsed Main: ", p[2], p[4], p[5], p[7])
 
@@ -23,9 +30,11 @@ def p_vars(p):
          | VAR ID COLON type SEMICOLON vars
     '''
     if len(p) == 6:
+        func_dir.add_variable_to_function(current_function, p[2], p[4])
         p[0] = [('var_declaration', p[2], p[4])]
         print("Parsed Var declaration: ", p[2], p[4])
     else:
+        func_dir.add_variable_to_function(current_function, p[2], p[4])
         p[0] = [('var_declaration', p[2], p[4])] + p[6]
         print("Parsed Var declaration + Vars: ", p[2], p[4])
 
@@ -52,9 +61,11 @@ def p_function_params(p):
                     | function_params COMMA ID COLON type
     '''
     if len(p) == 4:
+        func_dir.add_variable_to_function(current_function, p[1], p[3])
         p[0] = [(p[1], p[3])]
         print("Params for a function: ", p[1], p[3])
     else:
+        func_dir.add_variable_to_function(current_function, p[3], p[5])
         p[0] = p[1] + [(p[3], p[5])]
         print("More params for a function: ", p[3], p[5])
 
@@ -71,8 +82,16 @@ def p_funcs(p):
           | VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON
           | VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON funcs
     '''
-    p[0] = [('function', p[2], p[4], p[6], p[7])]
-    print("Declare a function: ", p[2], p[4], p[6], p[7])
+    global current_function
+    current_function = p[2]
+    func_dir.add_function(p[2], p[1])
+
+    if len(p) > 4 and isinstance(p[4], list):
+        print("if1")
+        for param in p[4]:
+            func_dir.add_variable_to_function(current_function, param[0], param[1])
+    current_function = 'global'
+    print("Declare a function: ", p[2], p[4], p[6], p[8])
 
 
 def p_statements(p):

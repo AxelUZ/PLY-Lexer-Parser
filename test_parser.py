@@ -1,5 +1,6 @@
-from parser import parser
+from parser import parser, func_dir
 from pprint import pprint
+
 
 def parse_program(file_read):
     with open(file_read, 'r') as file:
@@ -31,6 +32,9 @@ def main():
     parsed_output = parse_program(file_path)
     print("\nParsed Output:")
     pprint(parsed_output)
+
+    print("\nFunction Directory:")
+    pprint(func_dir)
 
 if __name__ == "__main__":
     main()

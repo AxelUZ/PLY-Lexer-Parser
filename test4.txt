@@ -3,7 +3,7 @@ program myProgram;
 var x : int;
 var y : float;
 
-void calculate(x: int, y: float) [
+void calculate(z: int, w: float) [
     {
         print("The value of w is: ");
 
