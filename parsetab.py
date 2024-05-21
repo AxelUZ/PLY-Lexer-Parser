@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'rightEQUALleftPLUSMINUSleftTIMESDIVIDEleftLPARENRPARENleftLBRACERBRACEleftLBRACKETRBRACKETCOLON COMMA CTE_FLOAT CTE_INT CTE_STRING DIVIDE DO ELSE END EQUAL FLOAT GT ID IF INT LBRACE LBRACKET LPAREN LT MAIN MINUS NE PLUS PRINT PROGRAM RBRACE RBRACKET RPAREN SEMICOLON TIMES VAR VOID WHILEprogram : PROGRAM ID SEMICOLON vars funcs MAIN body END\n    vars : VAR ID COLON type SEMICOLON\n         | VAR ID COLON type SEMICOLON vars\n    \n    type : INT\n         | FLOAT\n    \n    body : LBRACE statements RBRACE\n    \n    function_params : ID COLON type\n                    | function_params COMMA ID COLON type\n    \n    funcs : VOID ID LPAREN function_params RPAREN LBRACKET vars body RBRACKET SEMICOLON\n          | VOID ID LPAREN function_params RPAREN LBRACKET vars body RBRACKET SEMICOLON funcs\n          | VOID ID LPAREN RPAREN LBRACKET vars body RBRACKET SEMICOLON\n          | VOID ID LPAREN RPAREN LBRACKET vars body RBRACKET SEMICOLON funcs\n          | VOID ID LPAREN function_params RPAREN LBRACKET body RBRACKET SEMICOLON\n          | VOID ID LPAREN function_params RPAREN LBRACKET body RBRACKET SEMICOLON funcs\n          | VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON\n          | VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON funcs\n    \n    statements : statement\n               | statements statement\n    \n    statement : assign\n              | condition\n              | cycle\n              | f_call\n              | print\n              | empty\n\n    assign : ID EQUAL expression SEMICOLON \n    condition : IF LPAREN expression RPAREN body\n              | IF LPAREN expression RPAREN body ELSE body\n    \n    cycle : DO body WHILE LPAREN expression RPAREN SEMICOLON\n    \n    f_call : ID LPAREN optional_arguments RPAREN SEMICOLON\n    \n    optional_arguments : expression\n                        | optional_arguments COMMA expression\n    \n    print : PRINT LPAREN expression RPAREN SEMICOLON\n          | PRINT LPAREN CTE_STRING RPAREN SEMICOLON\n    \n    expression : exp\n               | exp GT exp\n               | exp LT exp\n               | exp NE exp\n    \n    exp : term\n        | exp PLUS term\n        | exp MINUS term\n    \n    term : factor\n         | term TIMES factor\n         | term DIVIDE factor\n    \n    factor : LPAREN expression RPAREN\n           | PLUS ID\n           | MINUS ID\n           | PLUS cte\n           | MINUS cte\n           | ID\n           | cte\n    \n    cte : CTE_INT\n        | CTE_FLOAT\n    empty :'
+_lr_signature = 'rightEQUALleftPLUSMINUSleftTIMESDIVIDEleftLPARENRPARENleftLBRACERBRACECOLON COMMA CTE_FLOAT CTE_INT CTE_STRING DIVIDE DO ELSE END EQUAL FLOAT GT ID IF INT LBRACE LPAREN LT MAIN MINUS NE PLUS PRINT PROGRAM RBRACE RPAREN SEMICOLON TIMES VAR VOID WHILEprogram : PROGRAM ID SEMICOLON vars MAIN body END\n    vars : VAR ID COLON type SEMICOLON\n         | VAR ID COLON type SEMICOLON vars\n    \n    type : INT\n         | FLOAT\n    \n    body : LBRACE statement RBRACE\n    \n    statement : assign\n              | condition\n              | cycle\n              | print\n              | empty\n\n    assign : ID EQUAL expression SEMICOLON \n    condition : IF LPAREN expression RPAREN body\n              | IF LPAREN expression RPAREN body ELSE body\n    \n    cycle : DO body WHILE LPAREN expression RPAREN SEMICOLON\n    \n    print : PRINT LPAREN expression RPAREN SEMICOLON\n          | PRINT LPAREN CTE_STRING RPAREN SEMICOLON\n    \n    expression : exp\n               | exp GT exp\n               | exp LT exp\n               | exp NE exp\n    \n    exp : term\n        | exp PLUS term\n        | exp MINUS term\n    \n    term : factor\n         | term TIMES factor\n         | term DIVIDE factor\n    \n    factor : LPAREN expression RPAREN\n           | PLUS ID\n           | MINUS ID\n           | PLUS cte\n           | MINUS cte\n           | ID\n           | cte\n    \n    cte : CTE_INT\n        | CTE_FLOAT\n    empty :'
     
-_lr_action_items = {'PROGRAM':([0,],[2,]),'$end':([1,19,],[0,-1,]),'ID':([2,6,8,14,15,20,21,22,23,24,25,26,27,36,37,38,39,40,42,45,52,53,55,70,71,72,73,74,75,76,77,84,86,102,104,106,107,119,120,],[3,9,11,28,32,28,-17,-19,-20,-21,-22,-23,-24,-6,-18,48,48,48,48,67,78,80,48,-25,48,48,48,48,48,48,48,48,48,-29,-26,-32,-33,-27,-28,]),'SEMICOLON':([3,16,17,18,48,49,50,51,54,56,57,58,78,79,80,81,83,87,88,93,94,95,96,97,98,99,100,101,109,111,114,115,],[4,35,-4,-5,-49,70,-34,-38,-41,-50,-51,-52,-45,-47,-46,-48,102,106,107,112,-35,-36,-37,-39,-40,-42,-43,-44,116,117,120,121,]),'VAR':([4,35,46,66,],[6,6,6,6,]),'VOID':([5,35,47,112,116,117,121,],[8,-2,-3,8,8,8,8,]),'MAIN':([7,112,116,117,118,121,122,123,124,],[10,-15,-13,-11,-16,-9,-14,-12,-10,]),'COLON':([9,32,67,],[12,43,91,]),'LBRACE':([10,30,35,46,47,66,68,85,89,113,],[14,14,-2,14,-3,14,14,14,14,14,]),'LPAREN':([11,28,29,31,38,39,40,42,55,62,71,72,73,74,75,76,77,84,86,],[15,39,40,42,55,55,55,55,55,86,55,55,55,55,55,55,55,55,55,]),'INT':([12,43,91,],[17,17,17,]),'FLOAT':([12,43,91,],[18,18,18,]),'END':([13,36,],[19,-6,]),'IF':([14,20,21,22,23,24,25,26,27,36,37,70,102,104,106,107,119,120,],[29,29,-17,-19,-20,-21,-22,-23,-24,-6,-18,-25,-29,-26,-32,-33,-27,-28,]),'DO':([14,20,21,22,23,24,25,26,27,36,37,70,102,104,106,107,119,120,],[30,30,-17,-19,-20,-21,-22,-23,-24,-6,-18,-25,-29,-26,-32,-33,-27,-28,]),'PRINT':([14,20,21,22,23,24,25,26,27,36,37,70,102,104,106,107,119,120,],[31,31,-17,-19,-20,-21,-22,-23,-24,-6,-18,-25,-29,-26,-32,-33,-27,-28,]),'RBRACE':([14,20,21,22,23,24,25,26,27,36,37,70,102,104,106,107,119,120,],[-53,36,-17,-19,-20,-21,-22,-23,-24,-6,-18,-25,-29,-26,-32,-33,-27,-28,]),'RPAREN':([15,17,18,33,48,50,51,54,56,57,58,59,60,61,63,64,65,78,79,80,81,82,94,95,96,97,98,99,100,101,103,105,110,],[34,-4,-5,44,-49,-34,-38,-41,-50,-51,-52,83,-30,85,87,88,-7,-45,-47,-46,-48,101,-35,-36,-37,-39,-40,-42,-43,-44,-31,114,-8,]),'COMMA':([17,18,33,48,50,51,54,56,57,58,59,60,65,78,79,80,81,94,95,96,97,98,99,100,101,103,110,],[-4,-5,45,-49,-34,-38,-41,-50,-51,-52,84,-30,-7,-45,-47,-46,-48,-35,-36,-37,-39,-40,-42,-43,-44,-31,-8,]),'EQUAL':([28,],[38,]),'LBRACKET':([34,44,],[46,66,]),'WHILE':([36,41,],[-6,62,]),'RBRACKET':([36,69,90,92,108,],[-6,93,109,111,115,]),'ELSE':([36,104,],[-6,113,]),'PLUS':([38,39,40,42,48,50,51,54,55,56,57,58,71,72,73,74,75,76,77,78,79,80,81,84,86,94,95,96,97,98,99,100,101,],[52,52,52,52,-49,74,-38,-41,52,-50,-51,-52,52,52,52,52,52,52,52,-45,-47,-46,-48,52,52,74,74,74,-39,-40,-42,-43,-44,]),'MINUS':([38,39,40,42,48,50,51,54,55,56,57,58,71,72,73,74,75,76,77,78,79,80,81,84,86,94,95,96,97,98,99,100,101,],[53,53,53,53,-49,75,-38,-41,53,-50,-51,-52,53,53,53,53,53,53,53,-45,-47,-46,-48,53,53,75,75,75,-39,-40,-42,-43,-44,]),'CTE_INT':([38,39,40,42,52,53,55,71,72,73,74,75,76,77,84,86,],[57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,]),'CTE_FLOAT':([38,39,40,42,52,53,55,71,72,73,74,75,76,77,84,86,],[58,58,58,58,58,58,58,58,58,58,58,58,58,58,58,58,]),'CTE_STRING':([42,],[64,]),'TIMES':([48,51,54,56,57,58,78,79,80,81,97,98,99,100,101,],[-49,76,-41,-50,-51,-52,-45,-47,-46,-48,76,76,-42,-43,-44,]),'DIVIDE':([48,51,54,56,57,58,78,79,80,81,97,98,99,100,101,],[-49,77,-41,-50,-51,-52,-45,-47,-46,-48,77,77,-42,-43,-44,]),'GT':([48,50,51,54,56,57,58,78,79,80,81,97,98,99,100,101,],[-49,71,-38,-41,-50,-51,-52,-45,-47,-46,-48,-39,-40,-42,-43,-44,]),'LT':([48,50,51,54,56,57,58,78,79,80,81,97,98,99,100,101,],[-49,72,-38,-41,-50,-51,-52,-45,-47,-46,-48,-39,-40,-42,-43,-44,]),'NE':([48,50,51,54,56,57,58,78,79,80,81,97,98,99,100,101,],[-49,73,-38,-41,-50,-51,-52,-45,-47,-46,-48,-39,-40,-42,-43,-44,]),}
+_lr_action_items = {'PROGRAM':([0,],[2,]),'$end':([1,12,],[0,-1,]),'ID':([2,6,10,27,28,30,36,37,39,49,50,51,52,53,54,55,62,],[3,8,19,32,32,32,56,58,32,32,32,32,32,32,32,32,32,]),'SEMICOLON':([3,23,24,25,32,33,34,35,38,40,41,42,56,57,58,59,63,64,65,66,67,68,69,70,71,72,78,],[4,31,-4,-5,-33,48,-18,-22,-25,-34,-35,-36,-29,-31,-30,-32,75,76,-19,-20,-21,-23,-24,-26,-27,-28,80,]),'VAR':([4,31,],[6,6,]),'MAIN':([5,31,47,],[7,-2,-3,]),'LBRACE':([7,21,61,77,],[10,10,10,10,]),'COLON':([8,],[11,]),'END':([9,26,],[12,-6,]),'IF':([10,],[20,]),'DO':([10,],[21,]),'PRINT':([10,],[22,]),'RBRACE':([10,13,14,15,16,17,18,26,48,73,75,76,79,80,],[-37,26,-7,-8,-9,-10,-11,-6,-12,-13,-16,-17,-14,-15,]),'INT':([11,],[24,]),'FLOAT':([11,],[25,]),'EQUAL':([19,],[27,]),'LPAREN':([20,22,27,28,30,39,44,49,50,51,52,53,54,55,62,],[28,30,39,39,39,39,62,39,39,39,39,39,39,39,39,]),'WHILE':([26,29,],[-6,44,]),'ELSE':([26,73,],[-6,77,]),'PLUS':([27,28,30,32,34,35,38,39,40,41,42,49,50,51,52,53,54,55,56,57,58,59,62,65,66,67,68,69,70,71,72,],[36,36,36,-33,52,-22,-25,36,-34,-35,-36,36,36,36,36,36,36,36,-29,-31,-30,-32,36,52,52,52,-23,-24,-26,-27,-28,]),'MINUS':([27,28,30,32,34,35,38,39,40,41,42,49,50,51,52,53,54,55,56,57,58,59,62,65,66,67,68,69,70,71,72,],[37,37,37,-33,53,-22,-25,37,-34,-35,-36,37,37,37,37,37,37,37,-29,-31,-30,-32,37,53,53,53,-23,-24,-26,-27,-28,]),'CTE_INT':([27,28,30,36,37,39,49,50,51,52,53,54,55,62,],[41,41,41,41,41,41,41,41,41,41,41,41,41,41,]),'CTE_FLOAT':([27,28,30,36,37,39,49,50,51,52,53,54,55,62,],[42,42,42,42,42,42,42,42,42,42,42,42,42,42,]),'CTE_STRING':([30,],[46,]),'TIMES':([32,35,38,40,41,42,56,57,58,59,68,69,70,71,72,],[-33,54,-25,-34,-35,-36,-29,-31,-30,-32,54,54,-26,-27,-28,]),'DIVIDE':([32,35,38,40,41,42,56,57,58,59,68,69,70,71,72,],[-33,55,-25,-34,-35,-36,-29,-31,-30,-32,55,55,-26,-27,-28,]),'GT':([32,34,35,38,40,41,42,56,57,58,59,68,69,70,71,72,],[-33,49,-22,-25,-34,-35,-36,-29,-31,-30,-32,-23,-24,-26,-27,-28,]),'LT':([32,34,35,38,40,41,42,56,57,58,59,68,69,70,71,72,],[-33,50,-22,-25,-34,-35,-36,-29,-31,-30,-32,-23,-24,-26,-27,-28,]),'NE':([32,34,35,38,40,41,42,56,57,58,59,68,69,70,71,72,],[-33,51,-22,-25,-34,-35,-36,-29,-31,-30,-32,-23,-24,-26,-27,-28,]),'RPAREN':([32,34,35,38,40,41,42,43,45,46,56,57,58,59,60,65,66,67,68,69,70,71,72,74,],[-33,-18,-22,-25,-34,-35,-36,61,63,64,-29,-31,-30,-32,72,-19,-20,-21,-23,-24,-26,-27,-28,78,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'vars':([4,35,46,66,],[5,47,68,89,]),'funcs':([5,112,116,117,121,],[7,118,122,123,124,]),'body':([10,30,46,66,68,85,89,113,],[13,41,69,90,92,104,108,119,]),'type':([12,43,91,],[16,65,110,]),'statements':([14,],[20,]),'statement':([14,20,],[21,37,]),'assign':([14,20,],[22,22,]),'condition':([14,20,],[23,23,]),'cycle':([14,20,],[24,24,]),'f_call':([14,20,],[25,25,]),'print':([14,20,],[26,26,]),'empty':([14,20,],[27,27,]),'function_params':([15,],[33,]),'expression':([38,39,40,42,55,84,86,],[49,60,61,63,82,103,105,]),'exp':([38,39,40,42,55,71,72,73,84,86,],[50,50,50,50,50,94,95,96,50,50,]),'term':([38,39,40,42,55,71,72,73,74,75,84,86,],[51,51,51,51,51,51,51,51,97,98,51,51,]),'factor':([38,39,40,42,55,71,72,73,74,75,76,77,84,86,],[54,54,54,54,54,54,54,54,54,54,99,100,54,54,]),'cte':([38,39,40,42,52,53,55,71,72,73,74,75,76,77,84,86,],[56,56,56,56,79,81,56,56,56,56,56,56,56,56,56,56,]),'optional_arguments':([39,],[59,]),}
+_lr_goto_items = {'program':([0,],[1,]),'vars':([4,31,],[5,47,]),'body':([7,21,61,77,],[9,29,73,79,]),'statement':([10,],[13,]),'assign':([10,],[14,]),'condition':([10,],[15,]),'cycle':([10,],[16,]),'print':([10,],[17,]),'empty':([10,],[18,]),'type':([11,],[23,]),'expression':([27,28,30,39,62,],[33,43,45,60,74,]),'exp':([27,28,30,39,49,50,51,62,],[34,34,34,34,65,66,67,34,]),'term':([27,28,30,39,49,50,51,52,53,62,],[35,35,35,35,35,35,35,68,69,35,]),'factor':([27,28,30,39,49,50,51,52,53,54,55,62,],[38,38,38,38,38,38,38,38,38,70,71,38,]),'cte':([27,28,30,36,37,39,49,50,51,52,53,54,55,62,],[40,40,40,57,59,40,40,40,40,40,40,40,40,40,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,57 +27,41 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> PROGRAM ID SEMICOLON vars funcs MAIN body END','program',8,'p_program','parser.py',15),
-  ('vars -> VAR ID COLON type SEMICOLON','vars',5,'p_vars','parser.py',22),
-  ('vars -> VAR ID COLON type SEMICOLON vars','vars',6,'p_vars','parser.py',23),
-  ('type -> INT','type',1,'p_type','parser.py',35),
-  ('type -> FLOAT','type',1,'p_type','parser.py',36),
-  ('body -> LBRACE statements RBRACE','body',3,'p_body','parser.py',43),
-  ('function_params -> ID COLON type','function_params',3,'p_function_params','parser.py',51),
-  ('function_params -> function_params COMMA ID COLON type','function_params',5,'p_function_params','parser.py',52),
-  ('funcs -> VOID ID LPAREN function_params RPAREN LBRACKET vars body RBRACKET SEMICOLON','funcs',10,'p_funcs','parser.py',65),
-  ('funcs -> VOID ID LPAREN function_params RPAREN LBRACKET vars body RBRACKET SEMICOLON funcs','funcs',11,'p_funcs','parser.py',66),
-  ('funcs -> VOID ID LPAREN RPAREN LBRACKET vars body RBRACKET SEMICOLON','funcs',9,'p_funcs','parser.py',67),
-  ('funcs -> VOID ID LPAREN RPAREN LBRACKET vars body RBRACKET SEMICOLON funcs','funcs',10,'p_funcs','parser.py',68),
-  ('funcs -> VOID ID LPAREN function_params RPAREN LBRACKET body RBRACKET SEMICOLON','funcs',9,'p_funcs','parser.py',69),
-  ('funcs -> VOID ID LPAREN function_params RPAREN LBRACKET body RBRACKET SEMICOLON funcs','funcs',10,'p_funcs','parser.py',70),
-  ('funcs -> VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON','funcs',8,'p_funcs','parser.py',71),
-  ('funcs -> VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON funcs','funcs',9,'p_funcs','parser.py',72),
-  ('statements -> statement','statements',1,'p_statements','parser.py',80),
-  ('statements -> statements statement','statements',2,'p_statements','parser.py',81),
-  ('statement -> assign','statement',1,'p_statement','parser.py',90),
-  ('statement -> condition','statement',1,'p_statement','parser.py',91),
-  ('statement -> cycle','statement',1,'p_statement','parser.py',92),
-  ('statement -> f_call','statement',1,'p_statement','parser.py',93),
-  ('statement -> print','statement',1,'p_statement','parser.py',94),
-  ('statement -> empty','statement',1,'p_statement','parser.py',95),
-  ('assign -> ID EQUAL expression SEMICOLON','assign',4,'p_assign','parser.py',102),
-  ('condition -> IF LPAREN expression RPAREN body','condition',5,'p_condition','parser.py',108),
-  ('condition -> IF LPAREN expression RPAREN body ELSE body','condition',7,'p_condition','parser.py',109),
-  ('cycle -> DO body WHILE LPAREN expression RPAREN SEMICOLON','cycle',7,'p_cycle','parser.py',119),
-  ('f_call -> ID LPAREN optional_arguments RPAREN SEMICOLON','f_call',5,'p_f_call','parser.py',127),
-  ('optional_arguments -> expression','optional_arguments',1,'p_optional_arguments','parser.py',135),
-  ('optional_arguments -> optional_arguments COMMA expression','optional_arguments',3,'p_optional_arguments','parser.py',136),
-  ('print -> PRINT LPAREN expression RPAREN SEMICOLON','print',5,'p_print','parser.py',146),
-  ('print -> PRINT LPAREN CTE_STRING RPAREN SEMICOLON','print',5,'p_print','parser.py',147),
-  ('expression -> exp','expression',1,'p_expression','parser.py',155),
-  ('expression -> exp GT exp','expression',3,'p_expression','parser.py',156),
-  ('expression -> exp LT exp','expression',3,'p_expression','parser.py',157),
-  ('expression -> exp NE exp','expression',3,'p_expression','parser.py',158),
-  ('exp -> term','exp',1,'p_exp','parser.py',168),
-  ('exp -> exp PLUS term','exp',3,'p_exp','parser.py',169),
-  ('exp -> exp MINUS term','exp',3,'p_exp','parser.py',170),
-  ('term -> factor','term',1,'p_term','parser.py',182),
-  ('term -> term TIMES factor','term',3,'p_term','parser.py',183),
-  ('term -> term DIVIDE factor','term',3,'p_term','parser.py',184),
-  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor','parser.py',196),
-  ('factor -> PLUS ID','factor',2,'p_factor','parser.py',197),
-  ('factor -> MINUS ID','factor',2,'p_factor','parser.py',198),
-  ('factor -> PLUS cte','factor',2,'p_factor','parser.py',199),
-  ('factor -> MINUS cte','factor',2,'p_factor','parser.py',200),
-  ('factor -> ID','factor',1,'p_factor','parser.py',201),
-  ('factor -> cte','factor',1,'p_factor','parser.py',202),
-  ('cte -> CTE_INT','cte',1,'p_cte','parser.py',214),
-  ('cte -> CTE_FLOAT','cte',1,'p_cte','parser.py',215),
-  ('empty -> <empty>','empty',0,'p_empty','parser.py',224),
+  ('program -> PROGRAM ID SEMICOLON vars MAIN body END','program',7,'p_program','parser.py',16),
+  ('vars -> VAR ID COLON type SEMICOLON','vars',5,'p_vars','parser.py',24),
+  ('vars -> VAR ID COLON type SEMICOLON vars','vars',6,'p_vars','parser.py',25),
+  ('type -> INT','type',1,'p_type','parser.py',39),
+  ('type -> FLOAT','type',1,'p_type','parser.py',40),
+  ('body -> LBRACE statement RBRACE','body',3,'p_body','parser.py',47),
+  ('statement -> assign','statement',1,'p_statement','parser.py',53),
+  ('statement -> condition','statement',1,'p_statement','parser.py',54),
+  ('statement -> cycle','statement',1,'p_statement','parser.py',55),
+  ('statement -> print','statement',1,'p_statement','parser.py',56),
+  ('statement -> empty','statement',1,'p_statement','parser.py',57),
+  ('assign -> ID EQUAL expression SEMICOLON','assign',4,'p_assign','parser.py',64),
+  ('condition -> IF LPAREN expression RPAREN body','condition',5,'p_condition','parser.py',70),
+  ('condition -> IF LPAREN expression RPAREN body ELSE body','condition',7,'p_condition','parser.py',71),
+  ('cycle -> DO body WHILE LPAREN expression RPAREN SEMICOLON','cycle',7,'p_cycle','parser.py',81),
+  ('print -> PRINT LPAREN expression RPAREN SEMICOLON','print',5,'p_print','parser.py',87),
+  ('print -> PRINT LPAREN CTE_STRING RPAREN SEMICOLON','print',5,'p_print','parser.py',88),
+  ('expression -> exp','expression',1,'p_expression','parser.py',96),
+  ('expression -> exp GT exp','expression',3,'p_expression','parser.py',97),
+  ('expression -> exp LT exp','expression',3,'p_expression','parser.py',98),
+  ('expression -> exp NE exp','expression',3,'p_expression','parser.py',99),
+  ('exp -> term','exp',1,'p_exp','parser.py',109),
+  ('exp -> exp PLUS term','exp',3,'p_exp','parser.py',110),
+  ('exp -> exp MINUS term','exp',3,'p_exp','parser.py',111),
+  ('term -> factor','term',1,'p_term','parser.py',123),
+  ('term -> term TIMES factor','term',3,'p_term','parser.py',124),
+  ('term -> term DIVIDE factor','term',3,'p_term','parser.py',125),
+  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor','parser.py',137),
+  ('factor -> PLUS ID','factor',2,'p_factor','parser.py',138),
+  ('factor -> MINUS ID','factor',2,'p_factor','parser.py',139),
+  ('factor -> PLUS cte','factor',2,'p_factor','parser.py',140),
+  ('factor -> MINUS cte','factor',2,'p_factor','parser.py',141),
+  ('factor -> ID','factor',1,'p_factor','parser.py',142),
+  ('factor -> cte','factor',1,'p_factor','parser.py',143),
+  ('cte -> CTE_INT','cte',1,'p_cte','parser.py',155),
+  ('cte -> CTE_FLOAT','cte',1,'p_cte','parser.py',156),
+  ('empty -> <empty>','empty',0,'p_empty','parser.py',165),
 ]

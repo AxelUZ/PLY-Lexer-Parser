@@ -1,4 +1,4 @@
-from parser import parser, func_dir
+from parser import parser, var_dir
 from pprint import pprint
 
 
@@ -33,8 +33,8 @@ def main():
     print("\nParsed Output:")
     pprint(parsed_output)
 
-    print("\nFunction Directory:")
-    pprint(func_dir)
+    print("\nVariable Global Directory:")
+    pprint(var_dir)
 
 if __name__ == "__main__":
     main()

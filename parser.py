@@ -1,10 +1,8 @@
 import ply.yacc as yacc
 from lexer import tokens
-from function_directory import FunctionDirectory
+from function_directory import VariableTable
 
-func_dir = FunctionDirectory()
-current_function = 'global'
-func_dir.add_function('global', 'void')
+var_dir = VariableTable()
 
 precedence = (
     ('right', 'EQUAL'),
@@ -12,16 +10,11 @@ precedence = (
     ('left', 'TIMES', 'DIVIDE'),
     ('left', 'LPAREN', 'RPAREN'),
     ('left', 'LBRACE', 'RBRACE'),
-    ('left', 'LBRACKET', 'RBRACKET'),
 )
 
-
 def p_program(p):
-    '''program : PROGRAM ID SEMICOLON vars funcs MAIN body END'''
-    global current_function
-    current_function = 'global'
-    p[0] = ('program', p[2], p[4], p[5], p[7])
-    print("Parsed Main: ", p[2], p[4], p[5], p[7])
+    '''program : PROGRAM ID SEMICOLON vars MAIN body END'''
+    p[0] = ('program', p[2], p[4], p[5], p[6], p[7])
 
 
 def p_vars(p):
@@ -30,13 +23,11 @@ def p_vars(p):
          | VAR ID COLON type SEMICOLON vars
     '''
     if len(p) == 6:
-        func_dir.add_variable_to_function(current_function, p[2], p[4])
+        var_dir.add_variable(p[2], p[4])
         p[0] = [('var_declaration', p[2], p[4])]
-        print("Parsed Var declaration: ", p[2], p[4])
     else:
-        func_dir.add_variable_to_function(current_function, p[2], p[4])
+        var_dir.add_variable(p[2], p[4])
         p[0] = [('var_declaration', p[2], p[4])] + p[6]
-        print("Parsed Var declaration + Vars: ", p[2], p[4])
 
 
 def p_type(p):
@@ -49,67 +40,15 @@ def p_type(p):
 
 def p_body(p):
     '''
-    body : LBRACE statements RBRACE
+    body : LBRACE statement RBRACE
     '''
-    p[0] = p[2]
-
-
-#2 func
-def p_function_params(p):
-    '''
-    function_params : ID COLON type
-                    | function_params COMMA ID COLON type
-    '''
-    if len(p) == 4:
-        func_dir.add_variable_to_function(current_function, p[1], p[3])
-        p[0] = [(p[1], p[3])]
-        print("Params for a function: ", p[1], p[3])
-    else:
-        func_dir.add_variable_to_function(current_function, p[3], p[5])
-        p[0] = p[1] + [(p[3], p[5])]
-        print("More params for a function: ", p[3], p[5])
-
-
-#1 func
-def p_funcs(p):
-    '''
-    funcs : VOID ID LPAREN function_params RPAREN LBRACKET vars body RBRACKET SEMICOLON
-          | VOID ID LPAREN function_params RPAREN LBRACKET vars body RBRACKET SEMICOLON funcs
-          | VOID ID LPAREN RPAREN LBRACKET vars body RBRACKET SEMICOLON
-          | VOID ID LPAREN RPAREN LBRACKET vars body RBRACKET SEMICOLON funcs
-          | VOID ID LPAREN function_params RPAREN LBRACKET body RBRACKET SEMICOLON
-          | VOID ID LPAREN function_params RPAREN LBRACKET body RBRACKET SEMICOLON funcs
-          | VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON
-          | VOID ID LPAREN RPAREN LBRACKET body RBRACKET SEMICOLON funcs
-    '''
-    global current_function
-    current_function = p[2]
-    func_dir.add_function(p[2], p[1])
-
-    if len(p) > 4 and isinstance(p[4], list):
-        print("if1")
-        for param in p[4]:
-            func_dir.add_variable_to_function(current_function, param[0], param[1])
-    current_function = 'global'
-    print("Declare a function: ", p[2], p[4], p[6], p[8])
-
-
-def p_statements(p):
-    '''
-    statements : statement
-               | statements statement
-    '''
-    if len(p) == 2:
-        p[0] = [p[1]]
-    else:
-        p[0] = p[1] + [p[2]]
+    p[0] = [('body', p[1],p[2],p[3])]
 
 def p_statement(p):
     '''
     statement : assign
               | condition
               | cycle
-              | f_call
               | print
               | empty
 
@@ -119,6 +58,8 @@ def p_statement(p):
 
 def p_assign(p):
     '''assign : ID EQUAL expression SEMICOLON '''
+    if not var_dir.verify_definition(p[1]):
+        raise ValueError(f"Variable '{p[1]}' not declared.")
     p[0] = ('assign', p[1], p[3])
 
 
@@ -139,34 +80,13 @@ def p_cycle(p):
     '''
     p[0] = ('do_while', p[2], p[5])
 
-
-#f_call 1
-def p_f_call(p):
-    '''
-    f_call : ID LPAREN optional_arguments RPAREN SEMICOLON
-    '''
-    p[0] = ('func_call', p[1], p[3])
-
-
-#f_call 2
-def p_optional_arguments(p):
-    '''
-    optional_arguments : expression
-                        | optional_arguments COMMA expression
-    '''
-    if len(p) == 2:
-        p[0] = [p[1]]
-    else:
-        p[0] = p[1] + [p[3]]
-
-
 def p_print(p):
     '''
     print : PRINT LPAREN expression RPAREN SEMICOLON
           | PRINT LPAREN CTE_STRING RPAREN SEMICOLON
     '''
-    if len(p) == 6:
-        p[0] = ('print', p[3])
+    p[0] = ('print', p[3])
+
 
 
 def p_expression(p):
@@ -223,6 +143,8 @@ def p_factor(p):
     if len(p) == 4:
         p[0] = p[2]
     elif len(p) == 3:
+        if not var_dir.verify_definition(p[1]):
+            raise ValueError(f"Variable '{p[2]}' not declared.")
         p[0] = ('unary_op', p[1], p[2])
     else:
         p[0] = p[1]
