@@ -8,6 +8,8 @@ class VariableTable:
         self.variables[name] = var_type
 
     def verify_definition(self, name):
+        if name not in self.variables:
+            raise ValueError(f"Variable '{name}' not declared.")
         return name in self.variables
 
     def get_variable(self, name):

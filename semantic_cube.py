@@ -1,3 +1,4 @@
+#Diccionario vara la verificacion de operacion entre tipos y verificar resultado
 semantic_cube = {
     '+': {
         ('int', 'int'): 'int',
@@ -38,5 +39,6 @@ semantic_cube = {
 }
 
 
+#Metodo para verificar con operador y operandos
 def get_result_type(operator, op1, op2):
     return semantic_cube[operator].get((op1, op2), 'error')

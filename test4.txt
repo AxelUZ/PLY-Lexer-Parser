@@ -1,16 +1,25 @@
 program myProgram;
 
-var x : int;
-var y : float;
-var z : int;
-var w : float;
+var
+x,y: int;
+w,z: float;
 
 main {
+
+    print((5-1), 10+12, 100/10.3);
+    print("Hola","Mundo");
+
     if (x > y) {
             z = x * 2;
         } else {
-            w = y / 2;
+            print(5+10);
         }
+
+    do {
+        z = x * 2;
     }
+    while(x > y);
+
+}
 
 end
