@@ -35,6 +35,12 @@ semantic_cube = {
         ('int', 'float'): 'bool',
         ('float', 'int'): 'bool',
         ('float', 'float'): 'bool',
+    },
+    '!=': {
+        ('int', 'int'): 'bool',
+        ('int', 'float'): 'bool',
+        ('float', 'int'): 'bool',
+        ('float', 'float'): 'bool',
     }
 }
 

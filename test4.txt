@@ -5,10 +5,12 @@ x,y: int;
 w,z: float;
 
 main {
-    z = x + y * (z - w);
+
     w = ((y + z) * (w - z)) / x;
-    y = w * x;
-    x = w / z;
+    x = y > z;
+    x = y < z;
+    x = y != z;
+
 }
 
 end

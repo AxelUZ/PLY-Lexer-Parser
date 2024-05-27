@@ -212,14 +212,49 @@ def p_list_print_cte(p):
 def p_expression(p):
     '''
     expression : exp
-               | exp GT exp
-               | exp LT exp
-               | exp NE exp
+               | exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+               | exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+               | exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
     '''
     if len(p) == 2:
         p[0] = p[1]
     else:
         p[0] = (p[1], p[2], p[3])
+
+
+#Regla 9 para guardar mayor que, menor que y diferente de
+def p_seen_exp_GT_LT_NE(p):
+    '''
+    seen_exp_GT_LT_NE :
+    '''
+    stack.POper.push(p[-1])
+
+#Regla 10 para generar cuadruplos para mayor que, menor que y diferente de
+def p_seen_exp_quad_G_L_N(p):
+    '''
+    seen_exp_quad_G_L_N :
+    '''
+    if not stack.POper.is_empty() and (stack.POper.top() == '>' or stack.POper.top() == '<' or stack.POper.top() == '!='):
+        right_Operand = stack.PilaO.pop()
+        right_Type = stack.PTypes.pop()
+        left_Operand = stack.PilaO.pop()
+        left_Type = stack.PTypes.pop()
+        operator = stack.POper.pop()
+        result_Type = get_result_type(operator, left_Type, right_Type)
+
+        if result_Type != 'error':
+            result = temp_var.next()
+            stack.generate_quad(operator, left_Operand, right_Operand, result)
+            stack.PilaO.push(result)
+            stack.PTypes.push(result_Type)
+
+            if temp_var.is_temp(right_Operand):
+                temp_var.release(right_Operand)
+            if temp_var.is_temp(left_Operand):
+                temp_var.release(left_Operand)
+
+        else:
+            raise TypeError(f"Type mismatch: {left_Type} {operator} {right_Type}")
 
 
 #Definicion para sumas y restas
