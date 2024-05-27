@@ -39,6 +39,6 @@ semantic_cube = {
 }
 
 
-#Metodo para verificar con operador y operandos
-def get_result_type(operator, op1, op2):
-    return semantic_cube[operator].get((op1, op2), 'error')
+#Metodo para verificar con operador y operandos en la regla 4 y 5
+def get_result_type(operator, left_operand, right_operand):
+    return semantic_cube[operator].get((left_operand, right_operand), 'error')

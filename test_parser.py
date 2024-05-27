@@ -1,4 +1,4 @@
-from parser import parser, var_dir
+from parser import parser, var_dir, stack
 from pprint import pprint
 
 
@@ -35,6 +35,21 @@ def main():
 
     print("\nVariable Global Directory:")
     pprint(var_dir)
+
+    print("\nOperadores:")
+    pprint(stack.PilaO)
+
+    print("\nTipos:")
+    pprint(stack.PTypes)
+
+    print("\nOperandos:")
+    pprint(stack.POper)
+
+    print("\nSaltos:")
+    pprint(stack.PJumps)
+
+    print("\nQuads:")
+    pprint(stack.quads)
 
 if __name__ == "__main__":
     main()

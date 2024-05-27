@@ -9,7 +9,13 @@ class Stack:
         if not self.is_empty():
             return self.items.pop()
         else:
-            raise IndexError("pop from empty stack")
+            raise IndexError("top from empty stack")
+
+    def top(self):
+        if not self.is_empty():
+            return self.items[-1]
+        else:
+            raise IndexError("top from empty stack")
 
     def is_empty(self):
         return len(self.items) == 0
@@ -18,7 +24,7 @@ class Stack:
         return repr(self.items)
 
 
-class Cuadruplos:
+class Quad:
     def __init__(self):
         self.POper = Stack()     # Pila de operadores
         self.PilaO = Stack()     # Pila de operandos

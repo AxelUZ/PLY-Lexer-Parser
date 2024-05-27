@@ -5,21 +5,10 @@ x,y: int;
 w,z: float;
 
 main {
-
-    print((5-1), 10+12, 100/10.3);
-    print("Hola","Mundo");
-
-    if (x > y) {
-            z = x * 2;
-        } else {
-            print(5+10);
-        }
-
-    do {
-        z = x * 2;
-    }
-    while(x > y);
-
+    z = x + y * (z - w);
+    w = ((y + z) * (w - z)) / x;
+    y = w * x;
+    x = w / z;
 }
 
 end

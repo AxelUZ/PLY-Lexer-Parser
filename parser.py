@@ -1,8 +1,13 @@
 import ply.yacc as yacc
 from lexer import tokens
 from function_directory import VariableTable
+from quad import Quad
+from semantic_cube import get_result_type
+from TempVars import TempVarGenerator
 
 var_dir = VariableTable()
+stack = Quad()
+temp_var = TempVarGenerator()
 
 precedence = (
     ('right', 'EQUAL'),
@@ -103,11 +108,53 @@ def p_statement(p):
 #Definicion general del assign
 def p_assign(p):
     '''
-    assign : ID EQUAL expression SEMICOLON
+    assign : ID seen_assign_ID EQUAL seen_term_EQUAL expression seen_exp_quad_E SEMICOLON
     '''
     #Verificar si el id p[1] esta o no dentro del diccionario de vars osea si esta declarado o no
     var_dir.verify_definition(p[1])
     p[0] = (p[1], p[2])
+
+
+#Regla 6 guardar id de assign
+def p_seen_assign_ID(p):
+    '''
+    seen_assign_ID :
+    '''
+    stack.PilaO.push(p[-1])
+
+
+#Regla 7 para guardar igual
+def p_seen_term_EQUAL(p):
+    '''
+    seen_term_EQUAL :
+    '''
+    stack.POper.push(p[-1])
+
+
+#Regla 8 para generar quad con igual
+def p_seen_exp_quad_E(p):
+    '''
+    seen_exp_quad_E :
+    '''
+    if not stack.POper.is_empty() and stack.POper.top() == '=':
+        right_Operand = stack.PilaO.pop()
+        right_Type = stack.PTypes.pop()
+        operator = stack.POper.pop()
+        result_Type = right_Type
+
+        if result_Type != 'error':
+            left_Operand = stack.PilaO.pop()
+            stack.generate_quad(operator, left_Operand, right_Operand, " ")
+            stack.PilaO.push(left_Operand)
+            stack.PTypes.push(result_Type)
+
+            if temp_var.is_temp(right_Operand):
+                temp_var.release(right_Operand)
+            if temp_var.is_temp(left_Operand):
+                temp_var.release(left_Operand)
+
+        else:
+            raise TypeError(f"Type mismatch: {operator} {right_Type}")
 
 
 #Definicion general de if con y sin else
@@ -179,8 +226,8 @@ def p_expression(p):
 def p_exp(p):
     '''
     exp : term
-        | exp PLUS term
-        | exp MINUS term
+        | exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+        | exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
     '''
     if len(p) == 2:
         p[0] = p[1]
@@ -192,12 +239,48 @@ def p_exp(p):
         p[0] = (p[1], p[2], p[3])
 
 
+#Regla 3 para guardar sumas y restas
+def p_seen_exp_PLUS_MINUS(p):
+    '''
+    seen_exp_PLUS_MINUS :
+    '''
+    stack.POper.push(p[-1])
+
+
+#Regla 4
+def p_seen_exp_quad_P_M(p):
+    '''
+    seen_exp_quad_P_M :
+    '''
+    if not stack.POper.is_empty() and (stack.POper.top() == '+' or stack.POper.top() == '-'):
+        right_Operand = stack.PilaO.pop()
+        right_Type = stack.PTypes.pop()
+        left_Operand = stack.PilaO.pop()
+        left_Type = stack.PTypes.pop()
+        operator = stack.POper.pop()
+        result_Type = get_result_type(operator, left_Type, right_Type)
+
+        if result_Type != 'error':
+            result = temp_var.next()
+            stack.generate_quad(operator, left_Operand, right_Operand, result)
+            stack.PilaO.push(result)
+            stack.PTypes.push(result_Type)
+
+            if temp_var.is_temp(right_Operand):
+                temp_var.release(right_Operand)
+            if temp_var.is_temp(left_Operand):
+                temp_var.release(left_Operand)
+
+        else:
+            raise TypeError(f"Type mismatch: {left_Type} {operator} {right_Type}")
+
+
 #Definicion para multiplicaciones y divisiones
 def p_term(p):
     '''
     term : factor
-         | term TIMES factor
-         | term DIVIDE factor
+         | term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+         | term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
     '''
     if len(p) == 2:
         p[0] = p[1]
@@ -208,32 +291,75 @@ def p_term(p):
     elif p[2] == '/':
         p[0] = (p[1], p[2], p[3])
 
+
+#Regla dos para guardar multiplicaciones y divisiones
+def p_seen_term_TIMES_DIVIDE(p):
+    '''
+    seen_term_TIMES_DIVIDE :
+    '''
+    stack.POper.push(p[-1])
+
+
+#Regla 5 quads para multiplicacion y division
+def p_seen_exp_quad_T_D(p):
+    '''
+    seen_exp_quad_T_D :
+    '''
+    if not stack.POper.is_empty() and (stack.POper.top() == '*' or stack.POper.top() == '/'):
+        right_Operand = stack.PilaO.pop()
+        right_Type = stack.PTypes.pop()
+        left_Operand = stack.PilaO.pop()
+        left_Type = stack.PTypes.pop()
+        operator = stack.POper.pop()
+        result_Type = get_result_type(operator, left_Type, right_Type)
+        if result_Type != 'error':
+            result = temp_var.next()
+            stack.generate_quad(operator, left_Operand, right_Operand, result)
+            stack.PilaO.push(result)
+            stack.PTypes.push(result_Type)
+
+            if temp_var.is_temp(right_Operand):
+                temp_var.release(right_Operand)
+            if temp_var.is_temp(left_Operand):
+                temp_var.release(left_Operand)
+
+        else:
+            raise TypeError(f"Type mismatch: {left_Type} {operator} {right_Type}")
+
+
 #Op con ultiples parentesis
 def p_factor(p):
-    '''
-    factor : LPAREN expression RPAREN
-           | PLUS ID
-           | MINUS ID
+    '''factor : LPAREN expression RPAREN
+           | PLUS ID seen_factor_ID
+           | MINUS ID seen_factor_ID
            | PLUS cte
            | MINUS cte
-           | ID
-           | cte
-    '''
+           | ID seen_factor_ID
+           | cte'''
     if len(p) == 4:
         p[0] = (p[1], p[2], p[3])
     elif len(p) == 3:
-        var_dir.verify_definition(p[2])
+        #var_dir.verify_definition(p[2])
         p[0] = (p[1], p[2])
     else:
         p[0] = p[1]
 
 
+#Regla uno para guardar ids y sus tipos que apunta a factor
+def p_seen_factor_ID(p):
+    '''
+    seen_factor_ID :
+    '''
+    stack.PilaO.push(p[-1])
+    stack.PTypes.push(var_dir.get_variable_type(p[-1]))
+
+
 def p_cte(p):
-    '''
-    cte : CTE_INT
-        | CTE_FLOAT
-    '''
+    '''cte : CTE_INT
+        | CTE_FLOAT'''
     p[0] = p[1]
+    #stack.PilaO.push(p[1])
+    #stack.PTypes.push('int' if isinstance(p[1], int) else 'float')
 
 
 def p_empty(p):
