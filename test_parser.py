@@ -1,4 +1,4 @@
-from parser import parser, func_dir
+from parser import parser, var_dir, stack
 from pprint import pprint
 
 
@@ -7,6 +7,11 @@ def parse_program(file_read):
         program_code = file.read()
     result = parser.parse(program_code)
     return result
+
+def write_quads_to_file(filename, quads):
+    with open(filename, 'w') as file:
+        for quad in quads:
+            file.write(f"{quad}\n")
 
 def main():
     print("Por favor, selecciona el archivo que deseas probar:")
@@ -33,8 +38,25 @@ def main():
     print("\nParsed Output:")
     pprint(parsed_output)
 
-    print("\nFunction Directory:")
-    pprint(func_dir)
+    print("\nVariable Global Directory:")
+    pprint(var_dir)
+
+    print("\nOperadores:")
+    pprint(stack.PilaO)
+
+    print("\nTipos:")
+    pprint(stack.PTypes)
+
+    print("\nOperandos:")
+    pprint(stack.POper)
+
+    print("\nSaltos:")
+    pprint(stack.PJumps)
+
+    print("\nQuads:")
+    pprint(stack.quads)
+
+    write_quads_to_file('quads.txt', stack.quads)
 
 if __name__ == "__main__":
     main()

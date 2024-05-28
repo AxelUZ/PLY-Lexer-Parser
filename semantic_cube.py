@@ -1,3 +1,4 @@
+#Diccionario vara la verificacion de operacion entre tipos y verificar resultado
 semantic_cube = {
     '+': {
         ('int', 'int'): 'int',
@@ -34,9 +35,16 @@ semantic_cube = {
         ('int', 'float'): 'bool',
         ('float', 'int'): 'bool',
         ('float', 'float'): 'bool',
+    },
+    '!=': {
+        ('int', 'int'): 'bool',
+        ('int', 'float'): 'bool',
+        ('float', 'int'): 'bool',
+        ('float', 'float'): 'bool',
     }
 }
 
 
-def get_result_type(operator, op1, op2):
-    return semantic_cube[operator].get((op1, op2), 'error')
+#Metodo para verificar con operador y operandos en la regla 4 y 5
+def get_result_type(operator, left_operand, right_operand):
+    return semantic_cube[operator].get((left_operand, right_operand), 'error')
