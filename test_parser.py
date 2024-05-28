@@ -8,6 +8,11 @@ def parse_program(file_read):
     result = parser.parse(program_code)
     return result
 
+def write_quads_to_file(filename, quads):
+    with open(filename, 'w') as file:
+        for quad in quads:
+            file.write(f"{quad}\n")
+
 def main():
     print("Por favor, selecciona el archivo que deseas probar:")
     print("1. test1.txt")
@@ -50,6 +55,8 @@ def main():
 
     print("\nQuads:")
     pprint(stack.quads)
+
+    write_quads_to_file('quads.txt', stack.quads)
 
 if __name__ == "__main__":
     main()
