@@ -1,18 +1,13 @@
 program myProgram;
 
-var x : int;
-var y : float;
-
-void calculate(x: int, y: float) [
-    var z : int;
-    var w : float;
-    {
-        print("The value of w is: ");
-    }
-];
+var
+x,y: int;
+w,z: float;
 
 main {
-    calculate(x, y);
+    x = 10 > 5;
+    print(x);
+
 }
 
 end

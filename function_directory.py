@@ -22,6 +22,3 @@ class VariableTable:
         if name not in self.variables:
             raise ValueError(f"Variable '{name}' not declared.")
         return self.variables[name]
-
-    def __repr__(self):
-        return str(self.variables)

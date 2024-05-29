@@ -20,9 +20,6 @@ class Stack:
     def is_empty(self):
         return len(self.items) == 0
 
-    def __repr__(self):
-        return repr(self.items)
-
 
 class Quad:
     def __init__(self):
@@ -30,12 +27,9 @@ class Quad:
         self.PilaO = Stack()     # Pila de operandos
         self.PTypes = Stack()    # Pila de tipos de operandos
         self.PJumps = Stack()    # Pila de saltos
-        self.quads = []          # Lista de cuádruplos
+        self.quads = []            # Lista de cuádruplos
 
     def generate_quad(self, operator, left_operand, right_operand, result):
         quad = (operator, left_operand, right_operand, result)
         self.quads.append(quad)
         return quad
-
-    def __repr__(self):
-        return f"Cuadruplos: {self.quads}"

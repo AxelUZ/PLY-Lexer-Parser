@@ -9,14 +9,6 @@ var_dir = VariableTable()
 stack = Quad()
 temp_var = TempVarGenerator()
 
-precedence = (
-    ('right', 'EQUAL'),
-    ('left', 'PLUS', 'MINUS'),
-    ('left', 'TIMES', 'DIVIDE'),
-    ('left', 'LPAREN', 'RPAREN'),
-    ('left', 'LBRACE', 'RBRACE'),
-)
-
 
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON return_vars MAIN body END
@@ -54,6 +46,7 @@ def p_vars(p):
         #Concatenar para regla 2 en caso de que se haga el return entre VAR y ID
         for vars_p1 in p[1]:
             var_dir.add_variable(vars_p1, p[3])
+        p[0] = (p[1], p[2], p[3], p[4])
 
 
 #Definir una o mas variables
@@ -112,7 +105,7 @@ def p_assign(p):
     '''
     #Verificar si el id p[1] esta o no dentro del diccionario de vars osea si esta declarado o no
     var_dir.verify_definition(p[1])
-    p[0] = (p[1], p[2])
+    p[0] = (p[1], p[3], p[5], p[6])
 
 
 #Regla 6 guardar id de assign
@@ -144,14 +137,9 @@ def p_seen_exp_quad_E(p):
 
         if result_Type != 'error':
             left_Operand = stack.PilaO.pop()
-            stack.generate_quad(operator, left_Operand, right_Operand, " ")
+            stack.generate_quad(operator, right_Operand, None, left_Operand)
             stack.PilaO.push(left_Operand)
             stack.PTypes.push(result_Type)
-
-            if temp_var.is_temp(right_Operand):
-                temp_var.release(right_Operand)
-            if temp_var.is_temp(left_Operand):
-                temp_var.release(left_Operand)
 
         else:
             raise TypeError(f"Type mismatch: {operator} {right_Type}")
@@ -179,21 +167,21 @@ def p_cycle(p):
 
 #Definicion de print
 def p_print(p):
-    '''print : PRINT LPAREN list_print_expression RPAREN SEMICOLON
-          | PRINT LPAREN list_print_cte RPAREN SEMICOLON'''
-    p[0] = (p[1], p[3])
+    '''print : PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON
+          | PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON'''
+    p[0] = (p[1], p[4])
 
 
 #Definir una o mas expresion para print
 def p_list_print_expression(p):
-    '''list_print_expression : expression
-              | list_print_expression COMMA expression'''
-    if len(p) == 2:
+    '''list_print_expression : expression seen_print_quad_PRINT
+              | list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT'''
+    if len(p) == 3:
         # Lista que contiene expresiones en la primera regla (una expression) (p0 lista resultante a recorrer)
         p[0] = [p[1]]
     else:
         # Una o mas espresiones, concatenar lista ya existente[p1] mas las sig expresiones(p[3])
-        p[0] = p[1] + [p[3]]
+        p[0] = p[1] + [p[4]]
 
 
 #Definir una o mas strings en un print
@@ -208,6 +196,38 @@ def p_list_print_cte(p):
         p[0] = p[1] + [p[3]]
 
 
+#Regla 11 guardar primer print
+def p_seen_print_PRINT(p):
+    '''
+     seen_print_PRINT :
+    '''
+    stack.POper.push(p[-1])
+
+
+#Regla 12 Si vienen commas añadir mas prints por cada comma
+def p_seen_print_PARINT_COMMA(p):
+    '''
+    seen_print_PARINT_COMMA :
+    '''
+    stack.POper.push("print")
+
+
+#Regla 13 Generar cuadruplos para print
+def p_seen_print_quad_PRINT(p):
+    '''
+    seen_print_quad_PRINT :
+    '''
+    if not stack.POper.is_empty() and stack.POper.top() == 'print':
+        operand = stack.PilaO.pop()
+        operand_type = stack.PTypes.pop()
+        operator = stack.POper.pop()
+
+        if operand_type != 'error':
+            stack.generate_quad(operator, None, None, operand)
+        else:
+            raise TypeError(f"Type mismatch: {operator} {operand_type}")
+
+
 #Defincion para validadores booleanos
 def p_expression(p):
     '''
@@ -219,7 +239,7 @@ def p_expression(p):
     if len(p) == 2:
         p[0] = p[1]
     else:
-        p[0] = (p[1], p[2], p[3])
+        p[0] = (p[1], p[2], p[4])
 
 
 #Regla 9 para guardar mayor que, menor que y diferente de
@@ -229,12 +249,14 @@ def p_seen_exp_GT_LT_NE(p):
     '''
     stack.POper.push(p[-1])
 
+
 #Regla 10 para generar cuadruplos para mayor que, menor que y diferente de
 def p_seen_exp_quad_G_L_N(p):
     '''
     seen_exp_quad_G_L_N :
     '''
-    if not stack.POper.is_empty() and (stack.POper.top() == '>' or stack.POper.top() == '<' or stack.POper.top() == '!='):
+    if not stack.POper.is_empty() and (
+            stack.POper.top() == '>' or stack.POper.top() == '<' or stack.POper.top() == '!='):
         right_Operand = stack.PilaO.pop()
         right_Type = stack.PTypes.pop()
         left_Operand = stack.PilaO.pop()
@@ -247,11 +269,6 @@ def p_seen_exp_quad_G_L_N(p):
             stack.generate_quad(operator, left_Operand, right_Operand, result)
             stack.PilaO.push(result)
             stack.PTypes.push(result_Type)
-
-            if temp_var.is_temp(right_Operand):
-                temp_var.release(right_Operand)
-            if temp_var.is_temp(left_Operand):
-                temp_var.release(left_Operand)
 
         else:
             raise TypeError(f"Type mismatch: {left_Type} {operator} {right_Type}")
@@ -268,10 +285,10 @@ def p_exp(p):
         p[0] = p[1]
         #Verificacion con signod e suma para regla 2
     elif p[2] == '+':
-        p[0] = (p[1], p[2], p[3])
+        p[0] = (p[1], p[2], p[4])
         #Verificacion con signo - para regla 3
     elif p[2] == '-':
-        p[0] = (p[1], p[2], p[3])
+        p[0] = (p[1], p[2], p[4])
 
 
 #Regla 3 para guardar sumas y restas
@@ -301,11 +318,6 @@ def p_seen_exp_quad_P_M(p):
             stack.PilaO.push(result)
             stack.PTypes.push(result_Type)
 
-            if temp_var.is_temp(right_Operand):
-                temp_var.release(right_Operand)
-            if temp_var.is_temp(left_Operand):
-                temp_var.release(left_Operand)
-
         else:
             raise TypeError(f"Type mismatch: {left_Type} {operator} {right_Type}")
 
@@ -321,10 +333,10 @@ def p_term(p):
         p[0] = p[1]
         # Verificacion con signod e multiplicacion para regla 2
     elif p[2] == '*':
-        p[0] = (p[1], p[2], p[3])
+        p[0] = (p[1], p[2], p[4])
         # Verificacion con signod e division para regla 3
     elif p[2] == '/':
-        p[0] = (p[1], p[2], p[3])
+        p[0] = (p[1], p[2], p[4])
 
 
 #Regla dos para guardar multiplicaciones y divisiones
@@ -353,11 +365,6 @@ def p_seen_exp_quad_T_D(p):
             stack.PilaO.push(result)
             stack.PTypes.push(result_Type)
 
-            if temp_var.is_temp(right_Operand):
-                temp_var.release(right_Operand)
-            if temp_var.is_temp(left_Operand):
-                temp_var.release(left_Operand)
-
         else:
             raise TypeError(f"Type mismatch: {left_Type} {operator} {right_Type}")
 
@@ -365,16 +372,15 @@ def p_seen_exp_quad_T_D(p):
 #Op con ultiples parentesis
 def p_factor(p):
     '''factor : LPAREN expression RPAREN
-           | PLUS ID seen_factor_ID
-           | MINUS ID seen_factor_ID
+           | PLUS ID seen_factor_ID verify_declaration
+           | MINUS ID seen_factor_ID verify_declaration
            | PLUS cte
            | MINUS cte
-           | ID seen_factor_ID
+           | ID seen_factor_ID verify_declaration
            | cte'''
     if len(p) == 4:
         p[0] = (p[1], p[2], p[3])
     elif len(p) == 3:
-        #var_dir.verify_definition(p[2])
         p[0] = (p[1], p[2])
     else:
         p[0] = p[1]
@@ -389,12 +395,20 @@ def p_seen_factor_ID(p):
     stack.PTypes.push(var_dir.get_variable_type(p[-1]))
 
 
+def p_verify_declaration(p):
+    '''
+    verify_declaration :
+    '''
+    var_dir.verify_definition(p[-2])
+
+
 def p_cte(p):
     '''cte : CTE_INT
         | CTE_FLOAT'''
     p[0] = p[1]
-    #stack.PilaO.push(p[1])
-    #stack.PTypes.push('int' if isinstance(p[1], int) else 'float')
+    # Regla 14 añadir ctes
+    stack.PilaO.push(p[1])
+    stack.PTypes.push('int' if isinstance(p[1], int) else 'float')
 
 
 def p_empty(p):

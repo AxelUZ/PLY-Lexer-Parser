@@ -11,7 +11,6 @@ tokens = [
     'ELSE',
     'WHILE',
     'DO',
-    'VOID',
     'MAIN',
     'END',
     'SEMICOLON',
@@ -63,10 +62,10 @@ reserved = {
     'else': 'ELSE',
     'while': 'WHILE',
     'do': 'DO',
-    'void': 'VOID',
     'main': 'MAIN',
     'end': 'END'
 }
+
 
 #Definicion tokens "complejos con ER"
 def t_ID(t):
