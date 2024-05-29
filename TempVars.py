@@ -12,10 +12,3 @@ class TempVarGenerator:
             temp_var = f't{self.counter}'
             self.counter += 1
             return temp_var
-
-    def release(self, temp_var):
-        #self.avail.append(temp_var)
-        pass
-
-    def is_temp(self, var):
-        return var.startswith('t')

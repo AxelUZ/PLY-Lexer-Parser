@@ -1,22 +1,13 @@
 program myProgram;
 
-var x : int;
-var y : float;
-
-void calculate(x: int, y: float) [
-    var z : int;
-    var w : float;
-    {
-        print("The value of w is: ");
-    }
-];
+var
+x,y: int;
+w,z: float;
 
 main {
-    if (x > y) {
-            z = x * 2;
-        } else {
-            w = y / 2;
-        }
+
+    print(5 - 1, 10 + 12, 100 / 10.3);
+
 }
 
 end
