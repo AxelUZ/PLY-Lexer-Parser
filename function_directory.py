@@ -14,11 +14,11 @@ class VariableTable:
             raise ValueError(f"Variable '{name}' not declared.")
         return name in self.variables
 
-    def get_variable(self, name):
-        return self.variables.get(name, None)
-
     # Obtener el tipo de una variable dado su nombre
     def get_variable_type(self, name):
         if name not in self.variables:
             raise ValueError(f"Variable '{name}' not declared.")
         return self.variables[name]
+
+    def __repr__(self):
+        return str(self.variables)

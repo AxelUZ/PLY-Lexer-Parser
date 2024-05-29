@@ -339,7 +339,7 @@ def p_term(p):
         p[0] = (p[1], p[2], p[4])
 
 
-#Regla dos para guardar multiplicaciones y divisiones
+#Regla 2 para guardar multiplicaciones y divisiones
 def p_seen_term_TIMES_DIVIDE(p):
     '''
     seen_term_TIMES_DIVIDE :
@@ -386,7 +386,7 @@ def p_factor(p):
         p[0] = p[1]
 
 
-#Regla uno para guardar ids y sus tipos que apunta a factor
+#Regla 1 para guardar ids y sus tipos que apunta a factor
 def p_seen_factor_ID(p):
     '''
     seen_factor_ID :

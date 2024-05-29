@@ -3,12 +3,8 @@
 class TempVarGenerator:
     def __init__(self):
         self.counter = 0
-        self.avail = []
 
     def next(self):
-        if self.avail:
-            return self.avail.pop(0)
-        else:
-            temp_var = f't{self.counter}'
-            self.counter += 1
-            return temp_var
+        temp_var = f't{self.counter}'
+        self.counter += 1
+        return temp_var
