@@ -130,19 +130,19 @@ def p_seen_exp_quad_E(p):
     seen_exp_quad_E :
     '''
     if not stack.POper.is_empty() and stack.POper.top() == '=':
-        right_Operand = stack.PilaO.pop()
-        right_Type = stack.PTypes.pop()
+        left_Operand = stack.PilaO.pop()
+        left_Type = stack.PTypes.pop()
         operator = stack.POper.pop()
-        result_Type = right_Type
+        result_Type = left_Type
 
         if result_Type != 'error':
-            left_Operand = stack.PilaO.pop()
-            stack.generate_quad(operator, right_Operand, None, left_Operand)
-            stack.PilaO.push(left_Operand)
+            right_Operand = stack.PilaO.pop()
+            stack.generate_quad(operator, left_Operand, None, right_Operand)
+            stack.PilaO.push(right_Operand)
             stack.PTypes.push(result_Type)
 
         else:
-            raise TypeError(f"Type mismatch: {operator} {right_Type}")
+            raise TypeError(f"Type mismatch: {operator} {left_Type}")
 
 
 #Definicion general de if con y sin else
@@ -219,13 +219,8 @@ def p_seen_print_quad_PRINT(p):
     '''
     if not stack.POper.is_empty() and stack.POper.top() == 'print':
         operand = stack.PilaO.pop()
-        operand_type = stack.PTypes.pop()
         operator = stack.POper.pop()
-
-        if operand_type != 'error':
-            stack.generate_quad(operator, None, None, operand)
-        else:
-            raise TypeError(f"Type mismatch: {operator} {operand_type}")
+        stack.generate_quad(operator, None, None, operand)
 
 
 #Defincion para validadores booleanos

@@ -44,7 +44,7 @@ def processor_quads(quads):
             memory_quads[result] = left_value != right_value
             print(left_value, "!=", right_value)
         elif operator == 'print':
-            print(memory_quads.get(result, result))
+            print(memory_quads[result])
         else:
             raise ValueError(f"Unknown operator {operator}")
 

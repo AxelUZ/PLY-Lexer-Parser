@@ -88,7 +88,7 @@ def t_CTE_INT(t):
 
 def t_CTE_STRING(t):
     r'\".*\"'
-    t.value = t.value[1:-1]
+    t.value = str(t.value)
     return t
 
 
