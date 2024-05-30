@@ -11,13 +11,13 @@ def parse_program(file_path):
 def processor_quads(quads):
     #Diccionario para el manejo de la "memoria"
     memory_quads = {}
-
+    #Se itera la tupla quads y se descompone
     for quad in quads:
         operator, left_operand, right_operand, result = quad
 
-        # Si el operando es un identificador se saca el valor de la memoria
-        left_value = left_operand if isinstance(left_operand, (int, float)) else memory_quads.get(left_operand, left_operand)
-        right_value = right_operand if isinstance(right_operand, (int, float)) else memory_quads.get(right_operand, right_operand)
+        #para obtener valor de los operandos (solo para ids obtener valor numerico)
+        left_value = memory_quads.get(left_operand, left_operand)
+        right_value = memory_quads.get(right_operand, right_operand)
 
         if operator == '+':
             memory_quads[result] = left_value + right_value
