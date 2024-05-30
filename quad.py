@@ -26,8 +26,8 @@ class Stack:
 
 class Quad:
     def __init__(self):
-        self.POper = Stack()  # Pila de operandos
-        self.PilaO = Stack()  # Pila de operadores
+        self.POper = Stack()  # Pila de operandos +,-,=
+        self.PilaO = Stack()  # Pila de operador x,y,z
         self.PTypes = Stack()  # Pila de tipos de operandos
         self.PJumps = Stack()  # Pila de saltos
         self.quads = []  # Tupla de cuádruplos

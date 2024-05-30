@@ -262,7 +262,7 @@ def p_seen_exp_quad_G_L_N(p):
         left_Operand = stack.PilaO.pop()
         left_Type = stack.PTypes.pop()
         operator = stack.POper.pop()
-        result_Type = get_result_type(operator, left_Type, right_Type)
+        result_Type = get_result_type(operator, left_Type, right_Type)  #Checar en cubo semantico tipos
 
         if result_Type != 'error':
             result = temp_var.next()
@@ -403,12 +403,25 @@ def p_verify_declaration(p):
 
 
 def p_cte(p):
-    '''cte : CTE_INT
-        | CTE_FLOAT'''
+    '''cte : CTE_INT seen_INT
+        | CTE_FLOAT seen_FLOAT'''
     p[0] = p[1]
     # Regla 14 añadir ctes
     stack.PilaO.push(p[1])
-    stack.PTypes.push('int' if isinstance(p[1], int) else 'float')
+
+
+def p_seen_INT(p):
+    '''
+    seen_INT :
+    '''
+    stack.PTypes.push('int')
+
+
+def p_seen_FLOAT(p):
+    '''
+    seen_FLOAT :
+    '''
+    stack.PTypes.push('float')
 
 
 def p_empty(p):

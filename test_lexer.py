@@ -1,9 +1,11 @@
 import lexer
 
+
 def test_lexer(input_string):
     lexer.lexer.input(input_string)
     for tok in lexer.lexer:
         print(tok)
+
 
 def main():
     print("Por favor, selecciona el archivo que deseas probar:")
@@ -30,6 +32,7 @@ def main():
         file_content = file.read()
 
     test_lexer(file_content)
+
 
 if __name__ == "__main__":
     main()
