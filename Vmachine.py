@@ -16,6 +16,7 @@ def processor_quads(quads):
 
     #Se itera la tupla quads y se descompone
     while quad_pointer < len(quads):
+        #Iterando en la lista de cuadruplos
         quad = quads[quad_pointer]
         operator, left_operand, right_operand, result = quad
 
@@ -59,12 +60,15 @@ def processor_quads(quads):
             print(memory_quads[result])
             quad_pointer += 1
         elif operator == 'GotoF':
-            quad_pointer += 1
-            quad_pointer = right_value
+            if not left_value: #si el t es falso entonces se cumple
+                quad_pointer = right_value
+            else:
+                quad_pointer += 1
             continue  # Saltar la impresion del cuadruplo
         elif operator == 'Goto':
             quad_pointer = right_value
-        elif operator == 'GotoV':
+            continue
+        elif operator == 'GotoV': #si el t es verdadero entonces se cumple
             if left_value:  # Si la condición es verdadera
                 quad_pointer = right_value
             else:

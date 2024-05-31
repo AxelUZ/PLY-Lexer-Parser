@@ -9,7 +9,7 @@ main {
     y = 5;
     w = 2.5;
 
-    if (x > y) {
+    if (x < y) {
          z = x + y;
     } else {
          print(w,x,y);

@@ -37,6 +37,8 @@ class Quad:
         self.quads.append(quad)
         return quad
 
+#Para actualizar cuadruplos osea completar los cuadroplos pendientes con goto
+#Ejemplo llenar cuadruplo 1 para saltar al 2
     def fill(self, quad_index, fill_value):
         operator, left_operand, _, result = self.quads[quad_index]
         self.quads[quad_index] = (operator, left_operand, fill_value, result)
