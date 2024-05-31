@@ -6,7 +6,7 @@ w,z: float;
 
 main {
     x = 0;
-    y = 5;
+    y = 2;
 
     do {
         print(x);
