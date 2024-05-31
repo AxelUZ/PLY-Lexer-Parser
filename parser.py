@@ -147,22 +147,74 @@ def p_seen_exp_quad_E(p):
 
 #Definicion general de if con y sin else
 def p_condition(p):
-    '''condition : IF LPAREN expression RPAREN body
-              | IF LPAREN expression RPAREN body ELSE body'''
+    '''condition : IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON
+              | IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON '''
     if len(p) == 6:
         #Caso para If
         p[0] = (p[1], p[3], p[5])
+        end = stack.PJumps.pop()
+        stack.fill(end, len(stack.quads))  #Fill GotoF
     else:
         #Caso para If Else
         p[0] = (p[1], p[3], p[5], p[6], p[7])
+        end = stack.PJumps.pop()
+        stack.fill(end, len(stack.quads))  #Fill GotoF
+
+
+#Generar GotoF en caso de que expresion sea false ir al final
+def p_seen_condition_IF(p):
+    '''
+    seen_condition_IF :
+    '''
+    exp_type = stack.PTypes.pop()
+    if exp_type == 'bool':
+        result = stack.PilaO.pop()
+        stack.generate_quad('GotoF', result, None, None)
+        stack.PJumps.push(len(stack.quads) - 1)
+    else:
+        raise TypeError(f"Type mismatch: {exp_type}")
+
+
+#Generar Goto en caso de que expresion sea false ir al final
+def p_seen_condition_else(p):
+    '''
+    seen_condition_else :
+    '''
+    stack.generate_quad('Goto', None, None, None)
+    false_jump = stack.PJumps.pop()
+    stack.PJumps.push(len(stack.quads) - 1)
+    stack.fill(false_jump, len(stack.quads))  #fill goto
 
 
 #Definicion para do while
 def p_cycle(p):
     '''
-    cycle : DO body WHILE LPAREN expression RPAREN SEMICOLON
+    cycle : DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON
     '''
     p[0] = (p[1], p[2], p[3], p[5])
+
+
+#GotoV despues de evaluar expresion para volver al DO
+def p_seen_cycle(p):
+    '''
+    seen_cycle :
+    '''
+    exp_type = stack.PTypes.pop()
+    if exp_type == 'bool':
+        result = stack.PilaO.pop()
+        start = p[-5]
+        stack.generate_quad('GotoV', result, start, None)
+        stack.PJumps.push(len(stack.quads) - 1)
+    else:
+        raise TypeError(f"Type mismatch: {exp_type}")
+
+
+#Obtener direccion de cuadruplos al inciio del DO que es donde debo volver si se es verdadero
+def p_seen_start_cycle(p):
+    '''
+    seen_start_cycle :
+    '''
+    p[0] = len(stack.quads)
 
 
 #Definicion de print

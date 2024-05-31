@@ -25,121 +25,129 @@ Rule 19    assign -> ID seen_assign_ID EQUAL seen_term_EQUAL expression seen_exp
 Rule 20    seen_assign_ID -> <empty>
 Rule 21    seen_term_EQUAL -> <empty>
 Rule 22    seen_exp_quad_E -> <empty>
-Rule 23    condition -> IF LPAREN expression RPAREN body
-Rule 24    condition -> IF LPAREN expression RPAREN body ELSE body
-Rule 25    cycle -> DO body WHILE LPAREN expression RPAREN SEMICOLON
-Rule 26    print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON
-Rule 27    print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON
-Rule 28    list_print_expression -> expression seen_print_quad_PRINT
-Rule 29    list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT
-Rule 30    list_print_cte -> CTE_STRING
-Rule 31    list_print_cte -> list_print_cte COMMA CTE_STRING
-Rule 32    seen_print_PRINT -> <empty>
-Rule 33    seen_print_PARINT_COMMA -> <empty>
-Rule 34    seen_print_quad_PRINT -> <empty>
-Rule 35    expression -> exp
-Rule 36    expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-Rule 37    expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-Rule 38    expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-Rule 39    seen_exp_GT_LT_NE -> <empty>
-Rule 40    seen_exp_quad_G_L_N -> <empty>
-Rule 41    exp -> term
-Rule 42    exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-Rule 43    exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-Rule 44    seen_exp_PLUS_MINUS -> <empty>
-Rule 45    seen_exp_quad_P_M -> <empty>
-Rule 46    term -> factor
-Rule 47    term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-Rule 48    term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-Rule 49    seen_term_TIMES_DIVIDE -> <empty>
-Rule 50    seen_exp_quad_T_D -> <empty>
-Rule 51    factor -> LPAREN expression RPAREN
-Rule 52    factor -> PLUS ID seen_factor_ID verify_declaration
-Rule 53    factor -> MINUS ID seen_factor_ID verify_declaration
-Rule 54    factor -> PLUS cte
-Rule 55    factor -> MINUS cte
-Rule 56    factor -> ID seen_factor_ID verify_declaration
-Rule 57    factor -> cte
-Rule 58    seen_factor_ID -> <empty>
-Rule 59    verify_declaration -> <empty>
-Rule 60    cte -> CTE_INT seen_INT
-Rule 61    cte -> CTE_FLOAT seen_FLOAT
-Rule 62    seen_INT -> <empty>
-Rule 63    seen_FLOAT -> <empty>
-Rule 64    empty -> <empty>
+Rule 23    condition -> IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON
+Rule 24    condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON
+Rule 25    seen_condition_IF -> <empty>
+Rule 26    seen_condition_else -> <empty>
+Rule 27    cycle -> DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON
+Rule 28    seen_cycle -> <empty>
+Rule 29    seen_start_cycle -> <empty>
+Rule 30    print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON
+Rule 31    print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON
+Rule 32    list_print_expression -> expression seen_print_quad_PRINT
+Rule 33    list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT
+Rule 34    list_print_cte -> CTE_STRING
+Rule 35    list_print_cte -> list_print_cte COMMA CTE_STRING
+Rule 36    seen_print_PRINT -> <empty>
+Rule 37    seen_print_PARINT_COMMA -> <empty>
+Rule 38    seen_print_quad_PRINT -> <empty>
+Rule 39    expression -> exp
+Rule 40    expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+Rule 41    expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+Rule 42    expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+Rule 43    seen_exp_GT_LT_NE -> <empty>
+Rule 44    seen_exp_quad_G_L_N -> <empty>
+Rule 45    exp -> term
+Rule 46    exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+Rule 47    exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+Rule 48    seen_exp_PLUS_MINUS -> <empty>
+Rule 49    seen_exp_quad_P_M -> <empty>
+Rule 50    term -> factor
+Rule 51    term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+Rule 52    term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+Rule 53    seen_term_TIMES_DIVIDE -> <empty>
+Rule 54    seen_exp_quad_T_D -> <empty>
+Rule 55    factor -> LPAREN expression RPAREN
+Rule 56    factor -> PLUS ID seen_factor_ID verify_declaration
+Rule 57    factor -> MINUS ID seen_factor_ID verify_declaration
+Rule 58    factor -> PLUS cte
+Rule 59    factor -> MINUS cte
+Rule 60    factor -> ID seen_factor_ID verify_declaration
+Rule 61    factor -> cte
+Rule 62    seen_factor_ID -> <empty>
+Rule 63    verify_declaration -> <empty>
+Rule 64    cte -> CTE_INT seen_INT
+Rule 65    cte -> CTE_FLOAT seen_FLOAT
+Rule 66    seen_INT -> <empty>
+Rule 67    seen_FLOAT -> <empty>
+Rule 68    empty -> <empty>
 
 Terminals, with rules where they appear
 
 COLON                : 5 6
-COMMA                : 8 29 31
-CTE_FLOAT            : 61
-CTE_INT              : 60
-CTE_STRING           : 30 31
-DIVIDE               : 48
-DO                   : 25
+COMMA                : 8 33 35
+CTE_FLOAT            : 65
+CTE_INT              : 64
+CTE_STRING           : 34 35
+DIVIDE               : 52
+DO                   : 27
 ELSE                 : 24
 END                  : 1 2
 EQUAL                : 19
 FLOAT                : 10
-GT                   : 36
-ID                   : 1 2 7 8 19 52 53 56
+GT                   : 40
+ID                   : 1 2 7 8 19 56 57 60
 IF                   : 23 24
 INT                  : 9
 LBRACE               : 13
-LPAREN               : 23 24 25 26 27 51
-LT                   : 37
+LPAREN               : 23 24 27 30 31 55
+LT                   : 41
 MAIN                 : 1 2
-MINUS                : 43 53 55
-NE                   : 38
-PLUS                 : 42 52 54
-PRINT                : 26 27
+MINUS                : 47 57 59
+NE                   : 42
+PLUS                 : 46 56 58
+PRINT                : 30 31
 PROGRAM              : 1 2
 RBRACE               : 13
-RPAREN               : 23 24 25 26 27 51
-SEMICOLON            : 1 2 5 6 19 25 26 27
-TIMES                : 47
+RPAREN               : 23 24 27 30 31 55
+SEMICOLON            : 1 2 5 6 19 23 24 27 30 31
+TIMES                : 51
 VAR                  : 5
-WHILE                : 25
+WHILE                : 27
 error                : 
 
 Nonterminals, with rules where they appear
 
 assign               : 14
-body                 : 1 2 23 24 24 25
+body                 : 1 2 23 24 24 27
 condition            : 15
-cte                  : 54 55 57
+cte                  : 58 59 61
 cycle                : 16
 empty                : 18
-exp                  : 35 36 36 37 37 38 38 42 43
-expression           : 19 23 24 25 28 29 51
-factor               : 46 47 48
-list_print_cte       : 27 31
-list_print_expression : 26 29
+exp                  : 39 40 40 41 41 42 42 46 47
+expression           : 19 23 24 27 32 33 55
+factor               : 50 51 52
+list_print_cte       : 31 35
+list_print_expression : 30 33
 list_vars            : 5 6 8
 print                : 17
 program              : 0
 return_statement     : 12 13
 return_vars          : 1 4
-seen_FLOAT           : 61
-seen_INT             : 60
+seen_FLOAT           : 65
+seen_INT             : 64
 seen_assign_ID       : 19
-seen_exp_GT_LT_NE    : 36 37 38
-seen_exp_PLUS_MINUS  : 42 43
+seen_condition_IF    : 23 24
+seen_condition_else  : 24
+seen_cycle           : 27
+seen_exp_GT_LT_NE    : 40 41 42
+seen_exp_PLUS_MINUS  : 46 47
 seen_exp_quad_E      : 19
-seen_exp_quad_G_L_N  : 36 37 38
-seen_exp_quad_P_M    : 42 43
-seen_exp_quad_T_D    : 47 48
-seen_factor_ID       : 52 53 56
-seen_print_PARINT_COMMA : 29
-seen_print_PRINT     : 26 27
-seen_print_quad_PRINT : 28 29
+seen_exp_quad_G_L_N  : 40 41 42
+seen_exp_quad_P_M    : 46 47
+seen_exp_quad_T_D    : 51 52
+seen_factor_ID       : 56 57 60
+seen_print_PARINT_COMMA : 33
+seen_print_PRINT     : 30 31
+seen_print_quad_PRINT : 32 33
+seen_start_cycle     : 27
 seen_term_EQUAL      : 19
-seen_term_TIMES_DIVIDE : 47 48
+seen_term_TIMES_DIVIDE : 51 52
 statement            : 11 12
-term                 : 41 42 43 47 48
+term                 : 45 46 47 51 52
 type                 : 5 6
 vars                 : 3 4
-verify_declaration   : 52 53 56
+verify_declaration   : 56 57 60
 
 Parsing method: LALR
 
@@ -291,12 +299,12 @@ state 14
     (17) statement -> . print
     (18) statement -> . empty
     (19) assign -> . ID seen_assign_ID EQUAL seen_term_EQUAL expression seen_exp_quad_E SEMICOLON
-    (23) condition -> . IF LPAREN expression RPAREN body
-    (24) condition -> . IF LPAREN expression RPAREN body ELSE body
-    (25) cycle -> . DO body WHILE LPAREN expression RPAREN SEMICOLON
-    (26) print -> . PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON
-    (27) print -> . PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON
-    (64) empty -> .
+    (23) condition -> . IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON
+    (24) condition -> . IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON
+    (27) cycle -> . DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON
+    (30) print -> . PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON
+    (31) print -> . PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON
+    (68) empty -> .
 
   ! shift/reduce conflict for ID resolved as shift
   ! shift/reduce conflict for IF resolved as shift
@@ -306,12 +314,12 @@ state 14
     IF              shift and go to state 28
     DO              shift and go to state 29
     PRINT           shift and go to state 30
-    RBRACE          reduce using rule 64 (empty -> .)
+    RBRACE          reduce using rule 68 (empty -> .)
 
-  ! ID              [ reduce using rule 64 (empty -> .) ]
-  ! IF              [ reduce using rule 64 (empty -> .) ]
-  ! DO              [ reduce using rule 64 (empty -> .) ]
-  ! PRINT           [ reduce using rule 64 (empty -> .) ]
+  ! ID              [ reduce using rule 68 (empty -> .) ]
+  ! IF              [ reduce using rule 68 (empty -> .) ]
+  ! DO              [ reduce using rule 68 (empty -> .) ]
+  ! PRINT           [ reduce using rule 68 (empty -> .) ]
 
     return_statement               shift and go to state 20
     statement                      shift and go to state 21
@@ -372,12 +380,12 @@ state 20
     (17) statement -> . print
     (18) statement -> . empty
     (19) assign -> . ID seen_assign_ID EQUAL seen_term_EQUAL expression seen_exp_quad_E SEMICOLON
-    (23) condition -> . IF LPAREN expression RPAREN body
-    (24) condition -> . IF LPAREN expression RPAREN body ELSE body
-    (25) cycle -> . DO body WHILE LPAREN expression RPAREN SEMICOLON
-    (26) print -> . PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON
-    (27) print -> . PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON
-    (64) empty -> .
+    (23) condition -> . IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON
+    (24) condition -> . IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON
+    (27) cycle -> . DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON
+    (30) print -> . PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON
+    (31) print -> . PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON
+    (68) empty -> .
 
   ! shift/reduce conflict for RBRACE resolved as shift
   ! shift/reduce conflict for ID resolved as shift
@@ -390,11 +398,11 @@ state 20
     DO              shift and go to state 29
     PRINT           shift and go to state 30
 
-  ! RBRACE          [ reduce using rule 64 (empty -> .) ]
-  ! ID              [ reduce using rule 64 (empty -> .) ]
-  ! IF              [ reduce using rule 64 (empty -> .) ]
-  ! DO              [ reduce using rule 64 (empty -> .) ]
-  ! PRINT           [ reduce using rule 64 (empty -> .) ]
+  ! RBRACE          [ reduce using rule 68 (empty -> .) ]
+  ! ID              [ reduce using rule 68 (empty -> .) ]
+  ! IF              [ reduce using rule 68 (empty -> .) ]
+  ! DO              [ reduce using rule 68 (empty -> .) ]
+  ! PRINT           [ reduce using rule 68 (empty -> .) ]
 
     statement                      shift and go to state 38
     assign                         shift and go to state 22
@@ -480,28 +488,28 @@ state 27
 
 state 28
 
-    (23) condition -> IF . LPAREN expression RPAREN body
-    (24) condition -> IF . LPAREN expression RPAREN body ELSE body
+    (23) condition -> IF . LPAREN expression seen_condition_IF RPAREN body SEMICOLON
+    (24) condition -> IF . LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON
 
     LPAREN          shift and go to state 40
 
 
 state 29
 
-    (25) cycle -> DO . body WHILE LPAREN expression RPAREN SEMICOLON
-    (13) body -> . LBRACE return_statement RBRACE
+    (27) cycle -> DO . seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON
+    (29) seen_start_cycle -> .
 
-    LBRACE          shift and go to state 14
+    LBRACE          reduce using rule 29 (seen_start_cycle -> .)
 
-    body                           shift and go to state 41
+    seen_start_cycle               shift and go to state 41
 
 state 30
 
-    (26) print -> PRINT . seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON
-    (27) print -> PRINT . seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON
-    (32) seen_print_PRINT -> .
+    (30) print -> PRINT . seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON
+    (31) print -> PRINT . seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON
+    (36) seen_print_PRINT -> .
 
-    LPAREN          reduce using rule 32 (seen_print_PRINT -> .)
+    LPAREN          reduce using rule 36 (seen_print_PRINT -> .)
 
     seen_print_PRINT               shift and go to state 42
 
@@ -558,12 +566,8 @@ state 37
 
     END             reduce using rule 13 (body -> LBRACE return_statement RBRACE .)
     WHILE           reduce using rule 13 (body -> LBRACE return_statement RBRACE .)
+    SEMICOLON       reduce using rule 13 (body -> LBRACE return_statement RBRACE .)
     ELSE            reduce using rule 13 (body -> LBRACE return_statement RBRACE .)
-    RBRACE          reduce using rule 13 (body -> LBRACE return_statement RBRACE .)
-    ID              reduce using rule 13 (body -> LBRACE return_statement RBRACE .)
-    IF              reduce using rule 13 (body -> LBRACE return_statement RBRACE .)
-    DO              reduce using rule 13 (body -> LBRACE return_statement RBRACE .)
-    PRINT           reduce using rule 13 (body -> LBRACE return_statement RBRACE .)
 
 
 state 38
@@ -586,27 +590,27 @@ state 39
 
 state 40
 
-    (23) condition -> IF LPAREN . expression RPAREN body
-    (24) condition -> IF LPAREN . expression RPAREN body ELSE body
-    (35) expression -> . exp
-    (36) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (37) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (38) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (41) exp -> . term
-    (42) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (23) condition -> IF LPAREN . expression seen_condition_IF RPAREN body SEMICOLON
+    (24) condition -> IF LPAREN . expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON
+    (39) expression -> . exp
+    (40) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (41) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (42) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (45) exp -> . term
+    (46) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -623,15 +627,17 @@ state 40
 
 state 41
 
-    (25) cycle -> DO body . WHILE LPAREN expression RPAREN SEMICOLON
+    (27) cycle -> DO seen_start_cycle . body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON
+    (13) body -> . LBRACE return_statement RBRACE
 
-    WHILE           shift and go to state 57
+    LBRACE          shift and go to state 14
 
+    body                           shift and go to state 57
 
 state 42
 
-    (26) print -> PRINT seen_print_PRINT . LPAREN list_print_expression RPAREN SEMICOLON
-    (27) print -> PRINT seen_print_PRINT . LPAREN list_print_cte RPAREN SEMICOLON
+    (30) print -> PRINT seen_print_PRINT . LPAREN list_print_expression RPAREN SEMICOLON
+    (31) print -> PRINT seen_print_PRINT . LPAREN list_print_cte RPAREN SEMICOLON
 
     LPAREN          shift and go to state 58
 
@@ -668,26 +674,26 @@ state 45
 
 state 46
 
-    (51) factor -> LPAREN . expression RPAREN
-    (35) expression -> . exp
-    (36) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (37) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (38) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (41) exp -> . term
-    (42) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (55) factor -> LPAREN . expression RPAREN
+    (39) expression -> . exp
+    (40) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (41) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (42) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (45) exp -> . term
+    (46) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -704,24 +710,26 @@ state 46
 
 state 47
 
-    (23) condition -> IF LPAREN expression . RPAREN body
-    (24) condition -> IF LPAREN expression . RPAREN body ELSE body
+    (23) condition -> IF LPAREN expression . seen_condition_IF RPAREN body SEMICOLON
+    (24) condition -> IF LPAREN expression . seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON
+    (25) seen_condition_IF -> .
 
-    RPAREN          shift and go to state 62
+    RPAREN          reduce using rule 25 (seen_condition_IF -> .)
 
+    seen_condition_IF              shift and go to state 62
 
 state 48
 
-    (35) expression -> exp .
-    (36) expression -> exp . GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (37) expression -> exp . LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (38) expression -> exp . NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (42) exp -> exp . PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> exp . MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (39) expression -> exp .
+    (40) expression -> exp . GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (41) expression -> exp . LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (42) expression -> exp . NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (46) exp -> exp . PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> exp . MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
 
-    RPAREN          reduce using rule 35 (expression -> exp .)
-    COMMA           reduce using rule 35 (expression -> exp .)
-    SEMICOLON       reduce using rule 35 (expression -> exp .)
+    RPAREN          reduce using rule 39 (expression -> exp .)
+    COMMA           reduce using rule 39 (expression -> exp .)
+    SEMICOLON       reduce using rule 39 (expression -> exp .)
     GT              shift and go to state 63
     LT              shift and go to state 64
     NE              shift and go to state 65
@@ -731,28 +739,28 @@ state 48
 
 state 49
 
-    (41) exp -> term .
-    (47) term -> term . TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> term . DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (45) exp -> term .
+    (51) term -> term . TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> term . DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
 
-    GT              reduce using rule 41 (exp -> term .)
-    LT              reduce using rule 41 (exp -> term .)
-    NE              reduce using rule 41 (exp -> term .)
-    PLUS            reduce using rule 41 (exp -> term .)
-    MINUS           reduce using rule 41 (exp -> term .)
-    RPAREN          reduce using rule 41 (exp -> term .)
-    COMMA           reduce using rule 41 (exp -> term .)
-    SEMICOLON       reduce using rule 41 (exp -> term .)
+    GT              reduce using rule 45 (exp -> term .)
+    LT              reduce using rule 45 (exp -> term .)
+    NE              reduce using rule 45 (exp -> term .)
+    PLUS            reduce using rule 45 (exp -> term .)
+    MINUS           reduce using rule 45 (exp -> term .)
+    RPAREN          reduce using rule 45 (exp -> term .)
+    COMMA           reduce using rule 45 (exp -> term .)
+    SEMICOLON       reduce using rule 45 (exp -> term .)
     TIMES           shift and go to state 68
     DIVIDE          shift and go to state 69
 
 
 state 50
 
-    (52) factor -> PLUS . ID seen_factor_ID verify_declaration
-    (54) factor -> PLUS . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (56) factor -> PLUS . ID seen_factor_ID verify_declaration
+    (58) factor -> PLUS . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     ID              shift and go to state 70
     CTE_INT         shift and go to state 55
@@ -762,10 +770,10 @@ state 50
 
 state 51
 
-    (53) factor -> MINUS . ID seen_factor_ID verify_declaration
-    (55) factor -> MINUS . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (57) factor -> MINUS . ID seen_factor_ID verify_declaration
+    (59) factor -> MINUS . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     ID              shift and go to state 72
     CTE_INT         shift and go to state 55
@@ -775,124 +783,124 @@ state 51
 
 state 52
 
-    (46) term -> factor .
+    (50) term -> factor .
 
-    TIMES           reduce using rule 46 (term -> factor .)
-    DIVIDE          reduce using rule 46 (term -> factor .)
-    GT              reduce using rule 46 (term -> factor .)
-    LT              reduce using rule 46 (term -> factor .)
-    NE              reduce using rule 46 (term -> factor .)
-    PLUS            reduce using rule 46 (term -> factor .)
-    MINUS           reduce using rule 46 (term -> factor .)
-    RPAREN          reduce using rule 46 (term -> factor .)
-    COMMA           reduce using rule 46 (term -> factor .)
-    SEMICOLON       reduce using rule 46 (term -> factor .)
+    TIMES           reduce using rule 50 (term -> factor .)
+    DIVIDE          reduce using rule 50 (term -> factor .)
+    GT              reduce using rule 50 (term -> factor .)
+    LT              reduce using rule 50 (term -> factor .)
+    NE              reduce using rule 50 (term -> factor .)
+    PLUS            reduce using rule 50 (term -> factor .)
+    MINUS           reduce using rule 50 (term -> factor .)
+    RPAREN          reduce using rule 50 (term -> factor .)
+    COMMA           reduce using rule 50 (term -> factor .)
+    SEMICOLON       reduce using rule 50 (term -> factor .)
 
 
 state 53
 
-    (56) factor -> ID . seen_factor_ID verify_declaration
-    (58) seen_factor_ID -> .
+    (60) factor -> ID . seen_factor_ID verify_declaration
+    (62) seen_factor_ID -> .
 
-    TIMES           reduce using rule 58 (seen_factor_ID -> .)
-    DIVIDE          reduce using rule 58 (seen_factor_ID -> .)
-    GT              reduce using rule 58 (seen_factor_ID -> .)
-    LT              reduce using rule 58 (seen_factor_ID -> .)
-    NE              reduce using rule 58 (seen_factor_ID -> .)
-    PLUS            reduce using rule 58 (seen_factor_ID -> .)
-    MINUS           reduce using rule 58 (seen_factor_ID -> .)
-    RPAREN          reduce using rule 58 (seen_factor_ID -> .)
-    COMMA           reduce using rule 58 (seen_factor_ID -> .)
-    SEMICOLON       reduce using rule 58 (seen_factor_ID -> .)
+    TIMES           reduce using rule 62 (seen_factor_ID -> .)
+    DIVIDE          reduce using rule 62 (seen_factor_ID -> .)
+    GT              reduce using rule 62 (seen_factor_ID -> .)
+    LT              reduce using rule 62 (seen_factor_ID -> .)
+    NE              reduce using rule 62 (seen_factor_ID -> .)
+    PLUS            reduce using rule 62 (seen_factor_ID -> .)
+    MINUS           reduce using rule 62 (seen_factor_ID -> .)
+    RPAREN          reduce using rule 62 (seen_factor_ID -> .)
+    COMMA           reduce using rule 62 (seen_factor_ID -> .)
+    SEMICOLON       reduce using rule 62 (seen_factor_ID -> .)
 
     seen_factor_ID                 shift and go to state 74
 
 state 54
 
-    (57) factor -> cte .
+    (61) factor -> cte .
 
-    TIMES           reduce using rule 57 (factor -> cte .)
-    DIVIDE          reduce using rule 57 (factor -> cte .)
-    GT              reduce using rule 57 (factor -> cte .)
-    LT              reduce using rule 57 (factor -> cte .)
-    NE              reduce using rule 57 (factor -> cte .)
-    PLUS            reduce using rule 57 (factor -> cte .)
-    MINUS           reduce using rule 57 (factor -> cte .)
-    RPAREN          reduce using rule 57 (factor -> cte .)
-    COMMA           reduce using rule 57 (factor -> cte .)
-    SEMICOLON       reduce using rule 57 (factor -> cte .)
+    TIMES           reduce using rule 61 (factor -> cte .)
+    DIVIDE          reduce using rule 61 (factor -> cte .)
+    GT              reduce using rule 61 (factor -> cte .)
+    LT              reduce using rule 61 (factor -> cte .)
+    NE              reduce using rule 61 (factor -> cte .)
+    PLUS            reduce using rule 61 (factor -> cte .)
+    MINUS           reduce using rule 61 (factor -> cte .)
+    RPAREN          reduce using rule 61 (factor -> cte .)
+    COMMA           reduce using rule 61 (factor -> cte .)
+    SEMICOLON       reduce using rule 61 (factor -> cte .)
 
 
 state 55
 
-    (60) cte -> CTE_INT . seen_INT
-    (62) seen_INT -> .
+    (64) cte -> CTE_INT . seen_INT
+    (66) seen_INT -> .
 
-    TIMES           reduce using rule 62 (seen_INT -> .)
-    DIVIDE          reduce using rule 62 (seen_INT -> .)
-    GT              reduce using rule 62 (seen_INT -> .)
-    LT              reduce using rule 62 (seen_INT -> .)
-    NE              reduce using rule 62 (seen_INT -> .)
-    PLUS            reduce using rule 62 (seen_INT -> .)
-    MINUS           reduce using rule 62 (seen_INT -> .)
-    RPAREN          reduce using rule 62 (seen_INT -> .)
-    COMMA           reduce using rule 62 (seen_INT -> .)
-    SEMICOLON       reduce using rule 62 (seen_INT -> .)
+    TIMES           reduce using rule 66 (seen_INT -> .)
+    DIVIDE          reduce using rule 66 (seen_INT -> .)
+    GT              reduce using rule 66 (seen_INT -> .)
+    LT              reduce using rule 66 (seen_INT -> .)
+    NE              reduce using rule 66 (seen_INT -> .)
+    PLUS            reduce using rule 66 (seen_INT -> .)
+    MINUS           reduce using rule 66 (seen_INT -> .)
+    RPAREN          reduce using rule 66 (seen_INT -> .)
+    COMMA           reduce using rule 66 (seen_INT -> .)
+    SEMICOLON       reduce using rule 66 (seen_INT -> .)
 
     seen_INT                       shift and go to state 75
 
 state 56
 
-    (61) cte -> CTE_FLOAT . seen_FLOAT
-    (63) seen_FLOAT -> .
+    (65) cte -> CTE_FLOAT . seen_FLOAT
+    (67) seen_FLOAT -> .
 
-    TIMES           reduce using rule 63 (seen_FLOAT -> .)
-    DIVIDE          reduce using rule 63 (seen_FLOAT -> .)
-    GT              reduce using rule 63 (seen_FLOAT -> .)
-    LT              reduce using rule 63 (seen_FLOAT -> .)
-    NE              reduce using rule 63 (seen_FLOAT -> .)
-    PLUS            reduce using rule 63 (seen_FLOAT -> .)
-    MINUS           reduce using rule 63 (seen_FLOAT -> .)
-    RPAREN          reduce using rule 63 (seen_FLOAT -> .)
-    COMMA           reduce using rule 63 (seen_FLOAT -> .)
-    SEMICOLON       reduce using rule 63 (seen_FLOAT -> .)
+    TIMES           reduce using rule 67 (seen_FLOAT -> .)
+    DIVIDE          reduce using rule 67 (seen_FLOAT -> .)
+    GT              reduce using rule 67 (seen_FLOAT -> .)
+    LT              reduce using rule 67 (seen_FLOAT -> .)
+    NE              reduce using rule 67 (seen_FLOAT -> .)
+    PLUS            reduce using rule 67 (seen_FLOAT -> .)
+    MINUS           reduce using rule 67 (seen_FLOAT -> .)
+    RPAREN          reduce using rule 67 (seen_FLOAT -> .)
+    COMMA           reduce using rule 67 (seen_FLOAT -> .)
+    SEMICOLON       reduce using rule 67 (seen_FLOAT -> .)
 
     seen_FLOAT                     shift and go to state 76
 
 state 57
 
-    (25) cycle -> DO body WHILE . LPAREN expression RPAREN SEMICOLON
+    (27) cycle -> DO seen_start_cycle body . WHILE LPAREN expression seen_cycle RPAREN SEMICOLON
 
-    LPAREN          shift and go to state 77
+    WHILE           shift and go to state 77
 
 
 state 58
 
-    (26) print -> PRINT seen_print_PRINT LPAREN . list_print_expression RPAREN SEMICOLON
-    (27) print -> PRINT seen_print_PRINT LPAREN . list_print_cte RPAREN SEMICOLON
-    (28) list_print_expression -> . expression seen_print_quad_PRINT
-    (29) list_print_expression -> . list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT
-    (30) list_print_cte -> . CTE_STRING
-    (31) list_print_cte -> . list_print_cte COMMA CTE_STRING
-    (35) expression -> . exp
-    (36) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (37) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (38) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (41) exp -> . term
-    (42) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (30) print -> PRINT seen_print_PRINT LPAREN . list_print_expression RPAREN SEMICOLON
+    (31) print -> PRINT seen_print_PRINT LPAREN . list_print_cte RPAREN SEMICOLON
+    (32) list_print_expression -> . expression seen_print_quad_PRINT
+    (33) list_print_expression -> . list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT
+    (34) list_print_cte -> . CTE_STRING
+    (35) list_print_cte -> . list_print_cte COMMA CTE_STRING
+    (39) expression -> . exp
+    (40) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (41) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (42) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (45) exp -> . term
+    (46) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     CTE_STRING      shift and go to state 81
     LPAREN          shift and go to state 46
@@ -922,25 +930,25 @@ state 59
 state 60
 
     (19) assign -> ID seen_assign_ID EQUAL seen_term_EQUAL . expression seen_exp_quad_E SEMICOLON
-    (35) expression -> . exp
-    (36) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (37) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (38) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (41) exp -> . term
-    (42) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (39) expression -> . exp
+    (40) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (41) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (42) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (45) exp -> . term
+    (46) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -957,277 +965,246 @@ state 60
 
 state 61
 
-    (51) factor -> LPAREN expression . RPAREN
+    (55) factor -> LPAREN expression . RPAREN
 
     RPAREN          shift and go to state 83
 
 
 state 62
 
-    (23) condition -> IF LPAREN expression RPAREN . body
-    (24) condition -> IF LPAREN expression RPAREN . body ELSE body
-    (13) body -> . LBRACE return_statement RBRACE
+    (23) condition -> IF LPAREN expression seen_condition_IF . RPAREN body SEMICOLON
+    (24) condition -> IF LPAREN expression seen_condition_IF . RPAREN body ELSE seen_condition_else body SEMICOLON
 
-    LBRACE          shift and go to state 14
+    RPAREN          shift and go to state 84
 
-    body                           shift and go to state 84
 
 state 63
 
-    (36) expression -> exp GT . seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (39) seen_exp_GT_LT_NE -> .
+    (40) expression -> exp GT . seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (43) seen_exp_GT_LT_NE -> .
 
-    LPAREN          reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    PLUS            reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    MINUS           reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    ID              reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    CTE_INT         reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    CTE_FLOAT       reduce using rule 39 (seen_exp_GT_LT_NE -> .)
+    LPAREN          reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    PLUS            reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    MINUS           reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    ID              reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    CTE_INT         reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    CTE_FLOAT       reduce using rule 43 (seen_exp_GT_LT_NE -> .)
 
     seen_exp_GT_LT_NE              shift and go to state 85
 
 state 64
 
-    (37) expression -> exp LT . seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (39) seen_exp_GT_LT_NE -> .
+    (41) expression -> exp LT . seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (43) seen_exp_GT_LT_NE -> .
 
-    LPAREN          reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    PLUS            reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    MINUS           reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    ID              reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    CTE_INT         reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    CTE_FLOAT       reduce using rule 39 (seen_exp_GT_LT_NE -> .)
+    LPAREN          reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    PLUS            reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    MINUS           reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    ID              reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    CTE_INT         reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    CTE_FLOAT       reduce using rule 43 (seen_exp_GT_LT_NE -> .)
 
     seen_exp_GT_LT_NE              shift and go to state 86
 
 state 65
 
-    (38) expression -> exp NE . seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (39) seen_exp_GT_LT_NE -> .
+    (42) expression -> exp NE . seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (43) seen_exp_GT_LT_NE -> .
 
-    LPAREN          reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    PLUS            reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    MINUS           reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    ID              reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    CTE_INT         reduce using rule 39 (seen_exp_GT_LT_NE -> .)
-    CTE_FLOAT       reduce using rule 39 (seen_exp_GT_LT_NE -> .)
+    LPAREN          reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    PLUS            reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    MINUS           reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    ID              reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    CTE_INT         reduce using rule 43 (seen_exp_GT_LT_NE -> .)
+    CTE_FLOAT       reduce using rule 43 (seen_exp_GT_LT_NE -> .)
 
     seen_exp_GT_LT_NE              shift and go to state 87
 
 state 66
 
-    (42) exp -> exp PLUS . seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (44) seen_exp_PLUS_MINUS -> .
+    (46) exp -> exp PLUS . seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (48) seen_exp_PLUS_MINUS -> .
 
-    LPAREN          reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    PLUS            reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    MINUS           reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    ID              reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    CTE_INT         reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    CTE_FLOAT       reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
+    LPAREN          reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    PLUS            reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    MINUS           reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    ID              reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    CTE_INT         reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    CTE_FLOAT       reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
 
     seen_exp_PLUS_MINUS            shift and go to state 88
 
 state 67
 
-    (43) exp -> exp MINUS . seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (44) seen_exp_PLUS_MINUS -> .
+    (47) exp -> exp MINUS . seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (48) seen_exp_PLUS_MINUS -> .
 
-    LPAREN          reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    PLUS            reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    MINUS           reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    ID              reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    CTE_INT         reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
-    CTE_FLOAT       reduce using rule 44 (seen_exp_PLUS_MINUS -> .)
+    LPAREN          reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    PLUS            reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    MINUS           reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    ID              reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    CTE_INT         reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
+    CTE_FLOAT       reduce using rule 48 (seen_exp_PLUS_MINUS -> .)
 
     seen_exp_PLUS_MINUS            shift and go to state 89
 
 state 68
 
-    (47) term -> term TIMES . seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (49) seen_term_TIMES_DIVIDE -> .
+    (51) term -> term TIMES . seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (53) seen_term_TIMES_DIVIDE -> .
 
-    LPAREN          reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    PLUS            reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    MINUS           reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    ID              reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    CTE_INT         reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    CTE_FLOAT       reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
+    LPAREN          reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    PLUS            reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    MINUS           reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    ID              reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    CTE_INT         reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    CTE_FLOAT       reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
 
     seen_term_TIMES_DIVIDE         shift and go to state 90
 
 state 69
 
-    (48) term -> term DIVIDE . seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (49) seen_term_TIMES_DIVIDE -> .
+    (52) term -> term DIVIDE . seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (53) seen_term_TIMES_DIVIDE -> .
 
-    LPAREN          reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    PLUS            reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    MINUS           reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    ID              reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    CTE_INT         reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
-    CTE_FLOAT       reduce using rule 49 (seen_term_TIMES_DIVIDE -> .)
+    LPAREN          reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    PLUS            reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    MINUS           reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    ID              reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    CTE_INT         reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
+    CTE_FLOAT       reduce using rule 53 (seen_term_TIMES_DIVIDE -> .)
 
     seen_term_TIMES_DIVIDE         shift and go to state 91
 
 state 70
 
-    (52) factor -> PLUS ID . seen_factor_ID verify_declaration
-    (58) seen_factor_ID -> .
+    (56) factor -> PLUS ID . seen_factor_ID verify_declaration
+    (62) seen_factor_ID -> .
 
-    TIMES           reduce using rule 58 (seen_factor_ID -> .)
-    DIVIDE          reduce using rule 58 (seen_factor_ID -> .)
-    GT              reduce using rule 58 (seen_factor_ID -> .)
-    LT              reduce using rule 58 (seen_factor_ID -> .)
-    NE              reduce using rule 58 (seen_factor_ID -> .)
-    PLUS            reduce using rule 58 (seen_factor_ID -> .)
-    MINUS           reduce using rule 58 (seen_factor_ID -> .)
-    RPAREN          reduce using rule 58 (seen_factor_ID -> .)
-    COMMA           reduce using rule 58 (seen_factor_ID -> .)
-    SEMICOLON       reduce using rule 58 (seen_factor_ID -> .)
+    TIMES           reduce using rule 62 (seen_factor_ID -> .)
+    DIVIDE          reduce using rule 62 (seen_factor_ID -> .)
+    GT              reduce using rule 62 (seen_factor_ID -> .)
+    LT              reduce using rule 62 (seen_factor_ID -> .)
+    NE              reduce using rule 62 (seen_factor_ID -> .)
+    PLUS            reduce using rule 62 (seen_factor_ID -> .)
+    MINUS           reduce using rule 62 (seen_factor_ID -> .)
+    RPAREN          reduce using rule 62 (seen_factor_ID -> .)
+    COMMA           reduce using rule 62 (seen_factor_ID -> .)
+    SEMICOLON       reduce using rule 62 (seen_factor_ID -> .)
 
     seen_factor_ID                 shift and go to state 92
 
 state 71
 
-    (54) factor -> PLUS cte .
+    (58) factor -> PLUS cte .
 
-    TIMES           reduce using rule 54 (factor -> PLUS cte .)
-    DIVIDE          reduce using rule 54 (factor -> PLUS cte .)
-    GT              reduce using rule 54 (factor -> PLUS cte .)
-    LT              reduce using rule 54 (factor -> PLUS cte .)
-    NE              reduce using rule 54 (factor -> PLUS cte .)
-    PLUS            reduce using rule 54 (factor -> PLUS cte .)
-    MINUS           reduce using rule 54 (factor -> PLUS cte .)
-    RPAREN          reduce using rule 54 (factor -> PLUS cte .)
-    COMMA           reduce using rule 54 (factor -> PLUS cte .)
-    SEMICOLON       reduce using rule 54 (factor -> PLUS cte .)
+    TIMES           reduce using rule 58 (factor -> PLUS cte .)
+    DIVIDE          reduce using rule 58 (factor -> PLUS cte .)
+    GT              reduce using rule 58 (factor -> PLUS cte .)
+    LT              reduce using rule 58 (factor -> PLUS cte .)
+    NE              reduce using rule 58 (factor -> PLUS cte .)
+    PLUS            reduce using rule 58 (factor -> PLUS cte .)
+    MINUS           reduce using rule 58 (factor -> PLUS cte .)
+    RPAREN          reduce using rule 58 (factor -> PLUS cte .)
+    COMMA           reduce using rule 58 (factor -> PLUS cte .)
+    SEMICOLON       reduce using rule 58 (factor -> PLUS cte .)
 
 
 state 72
 
-    (53) factor -> MINUS ID . seen_factor_ID verify_declaration
-    (58) seen_factor_ID -> .
+    (57) factor -> MINUS ID . seen_factor_ID verify_declaration
+    (62) seen_factor_ID -> .
 
-    TIMES           reduce using rule 58 (seen_factor_ID -> .)
-    DIVIDE          reduce using rule 58 (seen_factor_ID -> .)
-    GT              reduce using rule 58 (seen_factor_ID -> .)
-    LT              reduce using rule 58 (seen_factor_ID -> .)
-    NE              reduce using rule 58 (seen_factor_ID -> .)
-    PLUS            reduce using rule 58 (seen_factor_ID -> .)
-    MINUS           reduce using rule 58 (seen_factor_ID -> .)
-    RPAREN          reduce using rule 58 (seen_factor_ID -> .)
-    COMMA           reduce using rule 58 (seen_factor_ID -> .)
-    SEMICOLON       reduce using rule 58 (seen_factor_ID -> .)
+    TIMES           reduce using rule 62 (seen_factor_ID -> .)
+    DIVIDE          reduce using rule 62 (seen_factor_ID -> .)
+    GT              reduce using rule 62 (seen_factor_ID -> .)
+    LT              reduce using rule 62 (seen_factor_ID -> .)
+    NE              reduce using rule 62 (seen_factor_ID -> .)
+    PLUS            reduce using rule 62 (seen_factor_ID -> .)
+    MINUS           reduce using rule 62 (seen_factor_ID -> .)
+    RPAREN          reduce using rule 62 (seen_factor_ID -> .)
+    COMMA           reduce using rule 62 (seen_factor_ID -> .)
+    SEMICOLON       reduce using rule 62 (seen_factor_ID -> .)
 
     seen_factor_ID                 shift and go to state 93
 
 state 73
 
-    (55) factor -> MINUS cte .
+    (59) factor -> MINUS cte .
 
-    TIMES           reduce using rule 55 (factor -> MINUS cte .)
-    DIVIDE          reduce using rule 55 (factor -> MINUS cte .)
-    GT              reduce using rule 55 (factor -> MINUS cte .)
-    LT              reduce using rule 55 (factor -> MINUS cte .)
-    NE              reduce using rule 55 (factor -> MINUS cte .)
-    PLUS            reduce using rule 55 (factor -> MINUS cte .)
-    MINUS           reduce using rule 55 (factor -> MINUS cte .)
-    RPAREN          reduce using rule 55 (factor -> MINUS cte .)
-    COMMA           reduce using rule 55 (factor -> MINUS cte .)
-    SEMICOLON       reduce using rule 55 (factor -> MINUS cte .)
+    TIMES           reduce using rule 59 (factor -> MINUS cte .)
+    DIVIDE          reduce using rule 59 (factor -> MINUS cte .)
+    GT              reduce using rule 59 (factor -> MINUS cte .)
+    LT              reduce using rule 59 (factor -> MINUS cte .)
+    NE              reduce using rule 59 (factor -> MINUS cte .)
+    PLUS            reduce using rule 59 (factor -> MINUS cte .)
+    MINUS           reduce using rule 59 (factor -> MINUS cte .)
+    RPAREN          reduce using rule 59 (factor -> MINUS cte .)
+    COMMA           reduce using rule 59 (factor -> MINUS cte .)
+    SEMICOLON       reduce using rule 59 (factor -> MINUS cte .)
 
 
 state 74
 
-    (56) factor -> ID seen_factor_ID . verify_declaration
-    (59) verify_declaration -> .
+    (60) factor -> ID seen_factor_ID . verify_declaration
+    (63) verify_declaration -> .
 
-    TIMES           reduce using rule 59 (verify_declaration -> .)
-    DIVIDE          reduce using rule 59 (verify_declaration -> .)
-    GT              reduce using rule 59 (verify_declaration -> .)
-    LT              reduce using rule 59 (verify_declaration -> .)
-    NE              reduce using rule 59 (verify_declaration -> .)
-    PLUS            reduce using rule 59 (verify_declaration -> .)
-    MINUS           reduce using rule 59 (verify_declaration -> .)
-    RPAREN          reduce using rule 59 (verify_declaration -> .)
-    COMMA           reduce using rule 59 (verify_declaration -> .)
-    SEMICOLON       reduce using rule 59 (verify_declaration -> .)
+    TIMES           reduce using rule 63 (verify_declaration -> .)
+    DIVIDE          reduce using rule 63 (verify_declaration -> .)
+    GT              reduce using rule 63 (verify_declaration -> .)
+    LT              reduce using rule 63 (verify_declaration -> .)
+    NE              reduce using rule 63 (verify_declaration -> .)
+    PLUS            reduce using rule 63 (verify_declaration -> .)
+    MINUS           reduce using rule 63 (verify_declaration -> .)
+    RPAREN          reduce using rule 63 (verify_declaration -> .)
+    COMMA           reduce using rule 63 (verify_declaration -> .)
+    SEMICOLON       reduce using rule 63 (verify_declaration -> .)
 
     verify_declaration             shift and go to state 94
 
 state 75
 
-    (60) cte -> CTE_INT seen_INT .
+    (64) cte -> CTE_INT seen_INT .
 
-    TIMES           reduce using rule 60 (cte -> CTE_INT seen_INT .)
-    DIVIDE          reduce using rule 60 (cte -> CTE_INT seen_INT .)
-    GT              reduce using rule 60 (cte -> CTE_INT seen_INT .)
-    LT              reduce using rule 60 (cte -> CTE_INT seen_INT .)
-    NE              reduce using rule 60 (cte -> CTE_INT seen_INT .)
-    PLUS            reduce using rule 60 (cte -> CTE_INT seen_INT .)
-    MINUS           reduce using rule 60 (cte -> CTE_INT seen_INT .)
-    RPAREN          reduce using rule 60 (cte -> CTE_INT seen_INT .)
-    COMMA           reduce using rule 60 (cte -> CTE_INT seen_INT .)
-    SEMICOLON       reduce using rule 60 (cte -> CTE_INT seen_INT .)
+    TIMES           reduce using rule 64 (cte -> CTE_INT seen_INT .)
+    DIVIDE          reduce using rule 64 (cte -> CTE_INT seen_INT .)
+    GT              reduce using rule 64 (cte -> CTE_INT seen_INT .)
+    LT              reduce using rule 64 (cte -> CTE_INT seen_INT .)
+    NE              reduce using rule 64 (cte -> CTE_INT seen_INT .)
+    PLUS            reduce using rule 64 (cte -> CTE_INT seen_INT .)
+    MINUS           reduce using rule 64 (cte -> CTE_INT seen_INT .)
+    RPAREN          reduce using rule 64 (cte -> CTE_INT seen_INT .)
+    COMMA           reduce using rule 64 (cte -> CTE_INT seen_INT .)
+    SEMICOLON       reduce using rule 64 (cte -> CTE_INT seen_INT .)
 
 
 state 76
 
-    (61) cte -> CTE_FLOAT seen_FLOAT .
+    (65) cte -> CTE_FLOAT seen_FLOAT .
 
-    TIMES           reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
-    DIVIDE          reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
-    GT              reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
-    LT              reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
-    NE              reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
-    PLUS            reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
-    MINUS           reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
-    RPAREN          reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
-    COMMA           reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
-    SEMICOLON       reduce using rule 61 (cte -> CTE_FLOAT seen_FLOAT .)
+    TIMES           reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
+    DIVIDE          reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
+    GT              reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
+    LT              reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
+    NE              reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
+    PLUS            reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
+    MINUS           reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
+    RPAREN          reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
+    COMMA           reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
+    SEMICOLON       reduce using rule 65 (cte -> CTE_FLOAT seen_FLOAT .)
 
 
 state 77
 
-    (25) cycle -> DO body WHILE LPAREN . expression RPAREN SEMICOLON
-    (35) expression -> . exp
-    (36) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (37) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (38) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (41) exp -> . term
-    (42) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (27) cycle -> DO seen_start_cycle body WHILE . LPAREN expression seen_cycle RPAREN SEMICOLON
 
-    LPAREN          shift and go to state 46
-    PLUS            shift and go to state 50
-    MINUS           shift and go to state 51
-    ID              shift and go to state 53
-    CTE_INT         shift and go to state 55
-    CTE_FLOAT       shift and go to state 56
+    LPAREN          shift and go to state 95
 
-    expression                     shift and go to state 95
-    exp                            shift and go to state 48
-    term                           shift and go to state 49
-    factor                         shift and go to state 52
-    cte                            shift and go to state 54
 
 state 78
 
-    (26) print -> PRINT seen_print_PRINT LPAREN list_print_expression . RPAREN SEMICOLON
-    (29) list_print_expression -> list_print_expression . COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT
+    (30) print -> PRINT seen_print_PRINT LPAREN list_print_expression . RPAREN SEMICOLON
+    (33) list_print_expression -> list_print_expression . COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT
 
     RPAREN          shift and go to state 96
     COMMA           shift and go to state 97
@@ -1235,8 +1212,8 @@ state 78
 
 state 79
 
-    (27) print -> PRINT seen_print_PRINT LPAREN list_print_cte . RPAREN SEMICOLON
-    (31) list_print_cte -> list_print_cte . COMMA CTE_STRING
+    (31) print -> PRINT seen_print_PRINT LPAREN list_print_cte . RPAREN SEMICOLON
+    (35) list_print_cte -> list_print_cte . COMMA CTE_STRING
 
     RPAREN          shift and go to state 98
     COMMA           shift and go to state 99
@@ -1244,20 +1221,20 @@ state 79
 
 state 80
 
-    (28) list_print_expression -> expression . seen_print_quad_PRINT
-    (34) seen_print_quad_PRINT -> .
+    (32) list_print_expression -> expression . seen_print_quad_PRINT
+    (38) seen_print_quad_PRINT -> .
 
-    RPAREN          reduce using rule 34 (seen_print_quad_PRINT -> .)
-    COMMA           reduce using rule 34 (seen_print_quad_PRINT -> .)
+    RPAREN          reduce using rule 38 (seen_print_quad_PRINT -> .)
+    COMMA           reduce using rule 38 (seen_print_quad_PRINT -> .)
 
     seen_print_quad_PRINT          shift and go to state 100
 
 state 81
 
-    (30) list_print_cte -> CTE_STRING .
+    (34) list_print_cte -> CTE_STRING .
 
-    RPAREN          reduce using rule 30 (list_print_cte -> CTE_STRING .)
-    COMMA           reduce using rule 30 (list_print_cte -> CTE_STRING .)
+    RPAREN          reduce using rule 34 (list_print_cte -> CTE_STRING .)
+    COMMA           reduce using rule 34 (list_print_cte -> CTE_STRING .)
 
 
 state 82
@@ -1271,51 +1248,48 @@ state 82
 
 state 83
 
-    (51) factor -> LPAREN expression RPAREN .
+    (55) factor -> LPAREN expression RPAREN .
 
-    TIMES           reduce using rule 51 (factor -> LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 51 (factor -> LPAREN expression RPAREN .)
-    GT              reduce using rule 51 (factor -> LPAREN expression RPAREN .)
-    LT              reduce using rule 51 (factor -> LPAREN expression RPAREN .)
-    NE              reduce using rule 51 (factor -> LPAREN expression RPAREN .)
-    PLUS            reduce using rule 51 (factor -> LPAREN expression RPAREN .)
-    MINUS           reduce using rule 51 (factor -> LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 51 (factor -> LPAREN expression RPAREN .)
-    COMMA           reduce using rule 51 (factor -> LPAREN expression RPAREN .)
-    SEMICOLON       reduce using rule 51 (factor -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 55 (factor -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 55 (factor -> LPAREN expression RPAREN .)
+    GT              reduce using rule 55 (factor -> LPAREN expression RPAREN .)
+    LT              reduce using rule 55 (factor -> LPAREN expression RPAREN .)
+    NE              reduce using rule 55 (factor -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 55 (factor -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 55 (factor -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 55 (factor -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 55 (factor -> LPAREN expression RPAREN .)
+    SEMICOLON       reduce using rule 55 (factor -> LPAREN expression RPAREN .)
 
 
 state 84
 
-    (23) condition -> IF LPAREN expression RPAREN body .
-    (24) condition -> IF LPAREN expression RPAREN body . ELSE body
+    (23) condition -> IF LPAREN expression seen_condition_IF RPAREN . body SEMICOLON
+    (24) condition -> IF LPAREN expression seen_condition_IF RPAREN . body ELSE seen_condition_else body SEMICOLON
+    (13) body -> . LBRACE return_statement RBRACE
 
-    RBRACE          reduce using rule 23 (condition -> IF LPAREN expression RPAREN body .)
-    ID              reduce using rule 23 (condition -> IF LPAREN expression RPAREN body .)
-    IF              reduce using rule 23 (condition -> IF LPAREN expression RPAREN body .)
-    DO              reduce using rule 23 (condition -> IF LPAREN expression RPAREN body .)
-    PRINT           reduce using rule 23 (condition -> IF LPAREN expression RPAREN body .)
-    ELSE            shift and go to state 102
+    LBRACE          shift and go to state 14
 
+    body                           shift and go to state 102
 
 state 85
 
-    (36) expression -> exp GT seen_exp_GT_LT_NE . exp seen_exp_quad_G_L_N
-    (41) exp -> . term
-    (42) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (40) expression -> exp GT seen_exp_GT_LT_NE . exp seen_exp_quad_G_L_N
+    (45) exp -> . term
+    (46) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -1331,22 +1305,22 @@ state 85
 
 state 86
 
-    (37) expression -> exp LT seen_exp_GT_LT_NE . exp seen_exp_quad_G_L_N
-    (41) exp -> . term
-    (42) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (41) expression -> exp LT seen_exp_GT_LT_NE . exp seen_exp_quad_G_L_N
+    (45) exp -> . term
+    (46) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -1362,22 +1336,22 @@ state 86
 
 state 87
 
-    (38) expression -> exp NE seen_exp_GT_LT_NE . exp seen_exp_quad_G_L_N
-    (41) exp -> . term
-    (42) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (42) expression -> exp NE seen_exp_GT_LT_NE . exp seen_exp_quad_G_L_N
+    (45) exp -> . term
+    (46) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -1393,19 +1367,19 @@ state 87
 
 state 88
 
-    (42) exp -> exp PLUS seen_exp_PLUS_MINUS . term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (46) exp -> exp PLUS seen_exp_PLUS_MINUS . term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -1420,19 +1394,19 @@ state 88
 
 state 89
 
-    (43) exp -> exp MINUS seen_exp_PLUS_MINUS . term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (47) exp -> exp MINUS seen_exp_PLUS_MINUS . term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -1447,16 +1421,16 @@ state 89
 
 state 90
 
-    (47) term -> term TIMES seen_term_TIMES_DIVIDE . factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (51) term -> term TIMES seen_term_TIMES_DIVIDE . factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -1470,16 +1444,16 @@ state 90
 
 state 91
 
-    (48) term -> term DIVIDE seen_term_TIMES_DIVIDE . factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (52) term -> term DIVIDE seen_term_TIMES_DIVIDE . factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -1493,104 +1467,133 @@ state 91
 
 state 92
 
-    (52) factor -> PLUS ID seen_factor_ID . verify_declaration
-    (59) verify_declaration -> .
+    (56) factor -> PLUS ID seen_factor_ID . verify_declaration
+    (63) verify_declaration -> .
 
-    TIMES           reduce using rule 59 (verify_declaration -> .)
-    DIVIDE          reduce using rule 59 (verify_declaration -> .)
-    GT              reduce using rule 59 (verify_declaration -> .)
-    LT              reduce using rule 59 (verify_declaration -> .)
-    NE              reduce using rule 59 (verify_declaration -> .)
-    PLUS            reduce using rule 59 (verify_declaration -> .)
-    MINUS           reduce using rule 59 (verify_declaration -> .)
-    RPAREN          reduce using rule 59 (verify_declaration -> .)
-    COMMA           reduce using rule 59 (verify_declaration -> .)
-    SEMICOLON       reduce using rule 59 (verify_declaration -> .)
+    TIMES           reduce using rule 63 (verify_declaration -> .)
+    DIVIDE          reduce using rule 63 (verify_declaration -> .)
+    GT              reduce using rule 63 (verify_declaration -> .)
+    LT              reduce using rule 63 (verify_declaration -> .)
+    NE              reduce using rule 63 (verify_declaration -> .)
+    PLUS            reduce using rule 63 (verify_declaration -> .)
+    MINUS           reduce using rule 63 (verify_declaration -> .)
+    RPAREN          reduce using rule 63 (verify_declaration -> .)
+    COMMA           reduce using rule 63 (verify_declaration -> .)
+    SEMICOLON       reduce using rule 63 (verify_declaration -> .)
 
     verify_declaration             shift and go to state 110
 
 state 93
 
-    (53) factor -> MINUS ID seen_factor_ID . verify_declaration
-    (59) verify_declaration -> .
+    (57) factor -> MINUS ID seen_factor_ID . verify_declaration
+    (63) verify_declaration -> .
 
-    TIMES           reduce using rule 59 (verify_declaration -> .)
-    DIVIDE          reduce using rule 59 (verify_declaration -> .)
-    GT              reduce using rule 59 (verify_declaration -> .)
-    LT              reduce using rule 59 (verify_declaration -> .)
-    NE              reduce using rule 59 (verify_declaration -> .)
-    PLUS            reduce using rule 59 (verify_declaration -> .)
-    MINUS           reduce using rule 59 (verify_declaration -> .)
-    RPAREN          reduce using rule 59 (verify_declaration -> .)
-    COMMA           reduce using rule 59 (verify_declaration -> .)
-    SEMICOLON       reduce using rule 59 (verify_declaration -> .)
+    TIMES           reduce using rule 63 (verify_declaration -> .)
+    DIVIDE          reduce using rule 63 (verify_declaration -> .)
+    GT              reduce using rule 63 (verify_declaration -> .)
+    LT              reduce using rule 63 (verify_declaration -> .)
+    NE              reduce using rule 63 (verify_declaration -> .)
+    PLUS            reduce using rule 63 (verify_declaration -> .)
+    MINUS           reduce using rule 63 (verify_declaration -> .)
+    RPAREN          reduce using rule 63 (verify_declaration -> .)
+    COMMA           reduce using rule 63 (verify_declaration -> .)
+    SEMICOLON       reduce using rule 63 (verify_declaration -> .)
 
     verify_declaration             shift and go to state 111
 
 state 94
 
-    (56) factor -> ID seen_factor_ID verify_declaration .
+    (60) factor -> ID seen_factor_ID verify_declaration .
 
-    TIMES           reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
-    DIVIDE          reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
-    GT              reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
-    LT              reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
-    NE              reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
-    PLUS            reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
-    MINUS           reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
-    RPAREN          reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
-    COMMA           reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
-    SEMICOLON       reduce using rule 56 (factor -> ID seen_factor_ID verify_declaration .)
+    TIMES           reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
+    DIVIDE          reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
+    GT              reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
+    LT              reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
+    NE              reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
+    PLUS            reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
+    MINUS           reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
+    RPAREN          reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
+    COMMA           reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
+    SEMICOLON       reduce using rule 60 (factor -> ID seen_factor_ID verify_declaration .)
 
 
 state 95
 
-    (25) cycle -> DO body WHILE LPAREN expression . RPAREN SEMICOLON
+    (27) cycle -> DO seen_start_cycle body WHILE LPAREN . expression seen_cycle RPAREN SEMICOLON
+    (39) expression -> . exp
+    (40) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (41) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (42) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (45) exp -> . term
+    (46) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
-    RPAREN          shift and go to state 112
+    LPAREN          shift and go to state 46
+    PLUS            shift and go to state 50
+    MINUS           shift and go to state 51
+    ID              shift and go to state 53
+    CTE_INT         shift and go to state 55
+    CTE_FLOAT       shift and go to state 56
 
+    expression                     shift and go to state 112
+    exp                            shift and go to state 48
+    term                           shift and go to state 49
+    factor                         shift and go to state 52
+    cte                            shift and go to state 54
 
 state 96
 
-    (26) print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN . SEMICOLON
+    (30) print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 113
 
 
 state 97
 
-    (29) list_print_expression -> list_print_expression COMMA . seen_print_PARINT_COMMA expression seen_print_quad_PRINT
-    (33) seen_print_PARINT_COMMA -> .
+    (33) list_print_expression -> list_print_expression COMMA . seen_print_PARINT_COMMA expression seen_print_quad_PRINT
+    (37) seen_print_PARINT_COMMA -> .
 
-    LPAREN          reduce using rule 33 (seen_print_PARINT_COMMA -> .)
-    PLUS            reduce using rule 33 (seen_print_PARINT_COMMA -> .)
-    MINUS           reduce using rule 33 (seen_print_PARINT_COMMA -> .)
-    ID              reduce using rule 33 (seen_print_PARINT_COMMA -> .)
-    CTE_INT         reduce using rule 33 (seen_print_PARINT_COMMA -> .)
-    CTE_FLOAT       reduce using rule 33 (seen_print_PARINT_COMMA -> .)
+    LPAREN          reduce using rule 37 (seen_print_PARINT_COMMA -> .)
+    PLUS            reduce using rule 37 (seen_print_PARINT_COMMA -> .)
+    MINUS           reduce using rule 37 (seen_print_PARINT_COMMA -> .)
+    ID              reduce using rule 37 (seen_print_PARINT_COMMA -> .)
+    CTE_INT         reduce using rule 37 (seen_print_PARINT_COMMA -> .)
+    CTE_FLOAT       reduce using rule 37 (seen_print_PARINT_COMMA -> .)
 
     seen_print_PARINT_COMMA        shift and go to state 114
 
 state 98
 
-    (27) print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN . SEMICOLON
+    (31) print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 115
 
 
 state 99
 
-    (31) list_print_cte -> list_print_cte COMMA . CTE_STRING
+    (35) list_print_cte -> list_print_cte COMMA . CTE_STRING
 
     CTE_STRING      shift and go to state 116
 
 
 state 100
 
-    (28) list_print_expression -> expression seen_print_quad_PRINT .
+    (32) list_print_expression -> expression seen_print_quad_PRINT .
 
-    RPAREN          reduce using rule 28 (list_print_expression -> expression seen_print_quad_PRINT .)
-    COMMA           reduce using rule 28 (list_print_expression -> expression seen_print_quad_PRINT .)
+    RPAREN          reduce using rule 32 (list_print_expression -> expression seen_print_quad_PRINT .)
+    COMMA           reduce using rule 32 (list_print_expression -> expression seen_print_quad_PRINT .)
 
 
 state 101
@@ -1602,206 +1605,208 @@ state 101
 
 state 102
 
-    (24) condition -> IF LPAREN expression RPAREN body ELSE . body
-    (13) body -> . LBRACE return_statement RBRACE
+    (23) condition -> IF LPAREN expression seen_condition_IF RPAREN body . SEMICOLON
+    (24) condition -> IF LPAREN expression seen_condition_IF RPAREN body . ELSE seen_condition_else body SEMICOLON
 
-    LBRACE          shift and go to state 14
+    SEMICOLON       shift and go to state 118
+    ELSE            shift and go to state 119
 
-    body                           shift and go to state 118
 
 state 103
 
-    (36) expression -> exp GT seen_exp_GT_LT_NE exp . seen_exp_quad_G_L_N
-    (42) exp -> exp . PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> exp . MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (40) seen_exp_quad_G_L_N -> .
+    (40) expression -> exp GT seen_exp_GT_LT_NE exp . seen_exp_quad_G_L_N
+    (46) exp -> exp . PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> exp . MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (44) seen_exp_quad_G_L_N -> .
 
     PLUS            shift and go to state 66
     MINUS           shift and go to state 67
-    RPAREN          reduce using rule 40 (seen_exp_quad_G_L_N -> .)
-    COMMA           reduce using rule 40 (seen_exp_quad_G_L_N -> .)
-    SEMICOLON       reduce using rule 40 (seen_exp_quad_G_L_N -> .)
-
-    seen_exp_quad_G_L_N            shift and go to state 119
-
-state 104
-
-    (37) expression -> exp LT seen_exp_GT_LT_NE exp . seen_exp_quad_G_L_N
-    (42) exp -> exp . PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> exp . MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (40) seen_exp_quad_G_L_N -> .
-
-    PLUS            shift and go to state 66
-    MINUS           shift and go to state 67
-    RPAREN          reduce using rule 40 (seen_exp_quad_G_L_N -> .)
-    COMMA           reduce using rule 40 (seen_exp_quad_G_L_N -> .)
-    SEMICOLON       reduce using rule 40 (seen_exp_quad_G_L_N -> .)
+    RPAREN          reduce using rule 44 (seen_exp_quad_G_L_N -> .)
+    COMMA           reduce using rule 44 (seen_exp_quad_G_L_N -> .)
+    SEMICOLON       reduce using rule 44 (seen_exp_quad_G_L_N -> .)
 
     seen_exp_quad_G_L_N            shift and go to state 120
 
-state 105
+state 104
 
-    (38) expression -> exp NE seen_exp_GT_LT_NE exp . seen_exp_quad_G_L_N
-    (42) exp -> exp . PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> exp . MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (40) seen_exp_quad_G_L_N -> .
+    (41) expression -> exp LT seen_exp_GT_LT_NE exp . seen_exp_quad_G_L_N
+    (46) exp -> exp . PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> exp . MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (44) seen_exp_quad_G_L_N -> .
 
     PLUS            shift and go to state 66
     MINUS           shift and go to state 67
-    RPAREN          reduce using rule 40 (seen_exp_quad_G_L_N -> .)
-    COMMA           reduce using rule 40 (seen_exp_quad_G_L_N -> .)
-    SEMICOLON       reduce using rule 40 (seen_exp_quad_G_L_N -> .)
+    RPAREN          reduce using rule 44 (seen_exp_quad_G_L_N -> .)
+    COMMA           reduce using rule 44 (seen_exp_quad_G_L_N -> .)
+    SEMICOLON       reduce using rule 44 (seen_exp_quad_G_L_N -> .)
 
     seen_exp_quad_G_L_N            shift and go to state 121
 
+state 105
+
+    (42) expression -> exp NE seen_exp_GT_LT_NE exp . seen_exp_quad_G_L_N
+    (46) exp -> exp . PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> exp . MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (44) seen_exp_quad_G_L_N -> .
+
+    PLUS            shift and go to state 66
+    MINUS           shift and go to state 67
+    RPAREN          reduce using rule 44 (seen_exp_quad_G_L_N -> .)
+    COMMA           reduce using rule 44 (seen_exp_quad_G_L_N -> .)
+    SEMICOLON       reduce using rule 44 (seen_exp_quad_G_L_N -> .)
+
+    seen_exp_quad_G_L_N            shift and go to state 122
+
 state 106
 
-    (42) exp -> exp PLUS seen_exp_PLUS_MINUS term . seen_exp_quad_P_M
-    (47) term -> term . TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> term . DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (45) seen_exp_quad_P_M -> .
+    (46) exp -> exp PLUS seen_exp_PLUS_MINUS term . seen_exp_quad_P_M
+    (51) term -> term . TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> term . DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (49) seen_exp_quad_P_M -> .
 
     TIMES           shift and go to state 68
     DIVIDE          shift and go to state 69
-    GT              reduce using rule 45 (seen_exp_quad_P_M -> .)
-    LT              reduce using rule 45 (seen_exp_quad_P_M -> .)
-    NE              reduce using rule 45 (seen_exp_quad_P_M -> .)
-    PLUS            reduce using rule 45 (seen_exp_quad_P_M -> .)
-    MINUS           reduce using rule 45 (seen_exp_quad_P_M -> .)
-    RPAREN          reduce using rule 45 (seen_exp_quad_P_M -> .)
-    COMMA           reduce using rule 45 (seen_exp_quad_P_M -> .)
-    SEMICOLON       reduce using rule 45 (seen_exp_quad_P_M -> .)
-
-    seen_exp_quad_P_M              shift and go to state 122
-
-state 107
-
-    (43) exp -> exp MINUS seen_exp_PLUS_MINUS term . seen_exp_quad_P_M
-    (47) term -> term . TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> term . DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (45) seen_exp_quad_P_M -> .
-
-    TIMES           shift and go to state 68
-    DIVIDE          shift and go to state 69
-    GT              reduce using rule 45 (seen_exp_quad_P_M -> .)
-    LT              reduce using rule 45 (seen_exp_quad_P_M -> .)
-    NE              reduce using rule 45 (seen_exp_quad_P_M -> .)
-    PLUS            reduce using rule 45 (seen_exp_quad_P_M -> .)
-    MINUS           reduce using rule 45 (seen_exp_quad_P_M -> .)
-    RPAREN          reduce using rule 45 (seen_exp_quad_P_M -> .)
-    COMMA           reduce using rule 45 (seen_exp_quad_P_M -> .)
-    SEMICOLON       reduce using rule 45 (seen_exp_quad_P_M -> .)
+    GT              reduce using rule 49 (seen_exp_quad_P_M -> .)
+    LT              reduce using rule 49 (seen_exp_quad_P_M -> .)
+    NE              reduce using rule 49 (seen_exp_quad_P_M -> .)
+    PLUS            reduce using rule 49 (seen_exp_quad_P_M -> .)
+    MINUS           reduce using rule 49 (seen_exp_quad_P_M -> .)
+    RPAREN          reduce using rule 49 (seen_exp_quad_P_M -> .)
+    COMMA           reduce using rule 49 (seen_exp_quad_P_M -> .)
+    SEMICOLON       reduce using rule 49 (seen_exp_quad_P_M -> .)
 
     seen_exp_quad_P_M              shift and go to state 123
 
+state 107
+
+    (47) exp -> exp MINUS seen_exp_PLUS_MINUS term . seen_exp_quad_P_M
+    (51) term -> term . TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> term . DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (49) seen_exp_quad_P_M -> .
+
+    TIMES           shift and go to state 68
+    DIVIDE          shift and go to state 69
+    GT              reduce using rule 49 (seen_exp_quad_P_M -> .)
+    LT              reduce using rule 49 (seen_exp_quad_P_M -> .)
+    NE              reduce using rule 49 (seen_exp_quad_P_M -> .)
+    PLUS            reduce using rule 49 (seen_exp_quad_P_M -> .)
+    MINUS           reduce using rule 49 (seen_exp_quad_P_M -> .)
+    RPAREN          reduce using rule 49 (seen_exp_quad_P_M -> .)
+    COMMA           reduce using rule 49 (seen_exp_quad_P_M -> .)
+    SEMICOLON       reduce using rule 49 (seen_exp_quad_P_M -> .)
+
+    seen_exp_quad_P_M              shift and go to state 124
+
 state 108
 
-    (47) term -> term TIMES seen_term_TIMES_DIVIDE factor . seen_exp_quad_T_D
-    (50) seen_exp_quad_T_D -> .
+    (51) term -> term TIMES seen_term_TIMES_DIVIDE factor . seen_exp_quad_T_D
+    (54) seen_exp_quad_T_D -> .
 
-    TIMES           reduce using rule 50 (seen_exp_quad_T_D -> .)
-    DIVIDE          reduce using rule 50 (seen_exp_quad_T_D -> .)
-    GT              reduce using rule 50 (seen_exp_quad_T_D -> .)
-    LT              reduce using rule 50 (seen_exp_quad_T_D -> .)
-    NE              reduce using rule 50 (seen_exp_quad_T_D -> .)
-    PLUS            reduce using rule 50 (seen_exp_quad_T_D -> .)
-    MINUS           reduce using rule 50 (seen_exp_quad_T_D -> .)
-    RPAREN          reduce using rule 50 (seen_exp_quad_T_D -> .)
-    COMMA           reduce using rule 50 (seen_exp_quad_T_D -> .)
-    SEMICOLON       reduce using rule 50 (seen_exp_quad_T_D -> .)
-
-    seen_exp_quad_T_D              shift and go to state 124
-
-state 109
-
-    (48) term -> term DIVIDE seen_term_TIMES_DIVIDE factor . seen_exp_quad_T_D
-    (50) seen_exp_quad_T_D -> .
-
-    TIMES           reduce using rule 50 (seen_exp_quad_T_D -> .)
-    DIVIDE          reduce using rule 50 (seen_exp_quad_T_D -> .)
-    GT              reduce using rule 50 (seen_exp_quad_T_D -> .)
-    LT              reduce using rule 50 (seen_exp_quad_T_D -> .)
-    NE              reduce using rule 50 (seen_exp_quad_T_D -> .)
-    PLUS            reduce using rule 50 (seen_exp_quad_T_D -> .)
-    MINUS           reduce using rule 50 (seen_exp_quad_T_D -> .)
-    RPAREN          reduce using rule 50 (seen_exp_quad_T_D -> .)
-    COMMA           reduce using rule 50 (seen_exp_quad_T_D -> .)
-    SEMICOLON       reduce using rule 50 (seen_exp_quad_T_D -> .)
+    TIMES           reduce using rule 54 (seen_exp_quad_T_D -> .)
+    DIVIDE          reduce using rule 54 (seen_exp_quad_T_D -> .)
+    GT              reduce using rule 54 (seen_exp_quad_T_D -> .)
+    LT              reduce using rule 54 (seen_exp_quad_T_D -> .)
+    NE              reduce using rule 54 (seen_exp_quad_T_D -> .)
+    PLUS            reduce using rule 54 (seen_exp_quad_T_D -> .)
+    MINUS           reduce using rule 54 (seen_exp_quad_T_D -> .)
+    RPAREN          reduce using rule 54 (seen_exp_quad_T_D -> .)
+    COMMA           reduce using rule 54 (seen_exp_quad_T_D -> .)
+    SEMICOLON       reduce using rule 54 (seen_exp_quad_T_D -> .)
 
     seen_exp_quad_T_D              shift and go to state 125
 
+state 109
+
+    (52) term -> term DIVIDE seen_term_TIMES_DIVIDE factor . seen_exp_quad_T_D
+    (54) seen_exp_quad_T_D -> .
+
+    TIMES           reduce using rule 54 (seen_exp_quad_T_D -> .)
+    DIVIDE          reduce using rule 54 (seen_exp_quad_T_D -> .)
+    GT              reduce using rule 54 (seen_exp_quad_T_D -> .)
+    LT              reduce using rule 54 (seen_exp_quad_T_D -> .)
+    NE              reduce using rule 54 (seen_exp_quad_T_D -> .)
+    PLUS            reduce using rule 54 (seen_exp_quad_T_D -> .)
+    MINUS           reduce using rule 54 (seen_exp_quad_T_D -> .)
+    RPAREN          reduce using rule 54 (seen_exp_quad_T_D -> .)
+    COMMA           reduce using rule 54 (seen_exp_quad_T_D -> .)
+    SEMICOLON       reduce using rule 54 (seen_exp_quad_T_D -> .)
+
+    seen_exp_quad_T_D              shift and go to state 126
+
 state 110
 
-    (52) factor -> PLUS ID seen_factor_ID verify_declaration .
+    (56) factor -> PLUS ID seen_factor_ID verify_declaration .
 
-    TIMES           reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
-    DIVIDE          reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
-    GT              reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
-    LT              reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
-    NE              reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
-    PLUS            reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
-    MINUS           reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
-    RPAREN          reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
-    COMMA           reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
-    SEMICOLON       reduce using rule 52 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    TIMES           reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    DIVIDE          reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    GT              reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    LT              reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    NE              reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    PLUS            reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    MINUS           reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    RPAREN          reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    COMMA           reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
+    SEMICOLON       reduce using rule 56 (factor -> PLUS ID seen_factor_ID verify_declaration .)
 
 
 state 111
 
-    (53) factor -> MINUS ID seen_factor_ID verify_declaration .
+    (57) factor -> MINUS ID seen_factor_ID verify_declaration .
 
-    TIMES           reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
-    DIVIDE          reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
-    GT              reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
-    LT              reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
-    NE              reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
-    PLUS            reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
-    MINUS           reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
-    RPAREN          reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
-    COMMA           reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
-    SEMICOLON       reduce using rule 53 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    TIMES           reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    DIVIDE          reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    GT              reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    LT              reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    NE              reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    PLUS            reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    MINUS           reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    RPAREN          reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    COMMA           reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
+    SEMICOLON       reduce using rule 57 (factor -> MINUS ID seen_factor_ID verify_declaration .)
 
 
 state 112
 
-    (25) cycle -> DO body WHILE LPAREN expression RPAREN . SEMICOLON
+    (27) cycle -> DO seen_start_cycle body WHILE LPAREN expression . seen_cycle RPAREN SEMICOLON
+    (28) seen_cycle -> .
 
-    SEMICOLON       shift and go to state 126
+    RPAREN          reduce using rule 28 (seen_cycle -> .)
 
+    seen_cycle                     shift and go to state 127
 
 state 113
 
-    (26) print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .
+    (30) print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .
 
-    RBRACE          reduce using rule 26 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
-    ID              reduce using rule 26 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
-    IF              reduce using rule 26 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
-    DO              reduce using rule 26 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
-    PRINT           reduce using rule 26 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 30 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
+    ID              reduce using rule 30 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
+    IF              reduce using rule 30 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
+    DO              reduce using rule 30 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
+    PRINT           reduce using rule 30 (print -> PRINT seen_print_PRINT LPAREN list_print_expression RPAREN SEMICOLON .)
 
 
 state 114
 
-    (29) list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA . expression seen_print_quad_PRINT
-    (35) expression -> . exp
-    (36) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (37) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (38) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
-    (41) exp -> . term
-    (42) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (43) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
-    (46) term -> . factor
-    (47) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (48) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
-    (51) factor -> . LPAREN expression RPAREN
-    (52) factor -> . PLUS ID seen_factor_ID verify_declaration
-    (53) factor -> . MINUS ID seen_factor_ID verify_declaration
-    (54) factor -> . PLUS cte
-    (55) factor -> . MINUS cte
-    (56) factor -> . ID seen_factor_ID verify_declaration
-    (57) factor -> . cte
-    (60) cte -> . CTE_INT seen_INT
-    (61) cte -> . CTE_FLOAT seen_FLOAT
+    (33) list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA . expression seen_print_quad_PRINT
+    (39) expression -> . exp
+    (40) expression -> . exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (41) expression -> . exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (42) expression -> . exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N
+    (45) exp -> . term
+    (46) exp -> . exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (47) exp -> . exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M
+    (50) term -> . factor
+    (51) term -> . term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (52) term -> . term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D
+    (55) factor -> . LPAREN expression RPAREN
+    (56) factor -> . PLUS ID seen_factor_ID verify_declaration
+    (57) factor -> . MINUS ID seen_factor_ID verify_declaration
+    (58) factor -> . PLUS cte
+    (59) factor -> . MINUS cte
+    (60) factor -> . ID seen_factor_ID verify_declaration
+    (61) factor -> . cte
+    (64) cte -> . CTE_INT seen_INT
+    (65) cte -> . CTE_FLOAT seen_FLOAT
 
     LPAREN          shift and go to state 46
     PLUS            shift and go to state 50
@@ -1810,7 +1815,7 @@ state 114
     CTE_INT         shift and go to state 55
     CTE_FLOAT       shift and go to state 56
 
-    expression                     shift and go to state 127
+    expression                     shift and go to state 128
     exp                            shift and go to state 48
     term                           shift and go to state 49
     factor                         shift and go to state 52
@@ -1818,21 +1823,21 @@ state 114
 
 state 115
 
-    (27) print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .
+    (31) print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .
 
-    RBRACE          reduce using rule 27 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
-    ID              reduce using rule 27 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
-    IF              reduce using rule 27 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
-    DO              reduce using rule 27 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
-    PRINT           reduce using rule 27 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 31 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
+    ID              reduce using rule 31 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
+    IF              reduce using rule 31 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
+    DO              reduce using rule 31 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
+    PRINT           reduce using rule 31 (print -> PRINT seen_print_PRINT LPAREN list_print_cte RPAREN SEMICOLON .)
 
 
 state 116
 
-    (31) list_print_cte -> list_print_cte COMMA CTE_STRING .
+    (35) list_print_cte -> list_print_cte COMMA CTE_STRING .
 
-    RPAREN          reduce using rule 31 (list_print_cte -> list_print_cte COMMA CTE_STRING .)
-    COMMA           reduce using rule 31 (list_print_cte -> list_print_cte COMMA CTE_STRING .)
+    RPAREN          reduce using rule 35 (list_print_cte -> list_print_cte COMMA CTE_STRING .)
+    COMMA           reduce using rule 35 (list_print_cte -> list_print_cte COMMA CTE_STRING .)
 
 
 state 117
@@ -1848,129 +1853,179 @@ state 117
 
 state 118
 
-    (24) condition -> IF LPAREN expression RPAREN body ELSE body .
+    (23) condition -> IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON .
 
-    RBRACE          reduce using rule 24 (condition -> IF LPAREN expression RPAREN body ELSE body .)
-    ID              reduce using rule 24 (condition -> IF LPAREN expression RPAREN body ELSE body .)
-    IF              reduce using rule 24 (condition -> IF LPAREN expression RPAREN body ELSE body .)
-    DO              reduce using rule 24 (condition -> IF LPAREN expression RPAREN body ELSE body .)
-    PRINT           reduce using rule 24 (condition -> IF LPAREN expression RPAREN body ELSE body .)
+    RBRACE          reduce using rule 23 (condition -> IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON .)
+    ID              reduce using rule 23 (condition -> IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON .)
+    IF              reduce using rule 23 (condition -> IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON .)
+    DO              reduce using rule 23 (condition -> IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON .)
+    PRINT           reduce using rule 23 (condition -> IF LPAREN expression seen_condition_IF RPAREN body SEMICOLON .)
 
 
 state 119
 
-    (36) expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .
+    (24) condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE . seen_condition_else body SEMICOLON
+    (26) seen_condition_else -> .
 
-    RPAREN          reduce using rule 36 (expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
-    COMMA           reduce using rule 36 (expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
-    SEMICOLON       reduce using rule 36 (expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
+    LBRACE          reduce using rule 26 (seen_condition_else -> .)
 
+    seen_condition_else            shift and go to state 129
 
 state 120
 
-    (37) expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .
+    (40) expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .
 
-    RPAREN          reduce using rule 37 (expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
-    COMMA           reduce using rule 37 (expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
-    SEMICOLON       reduce using rule 37 (expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
+    RPAREN          reduce using rule 40 (expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
+    COMMA           reduce using rule 40 (expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
+    SEMICOLON       reduce using rule 40 (expression -> exp GT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
 
 
 state 121
 
-    (38) expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .
+    (41) expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .
 
-    RPAREN          reduce using rule 38 (expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
-    COMMA           reduce using rule 38 (expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
-    SEMICOLON       reduce using rule 38 (expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
+    RPAREN          reduce using rule 41 (expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
+    COMMA           reduce using rule 41 (expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
+    SEMICOLON       reduce using rule 41 (expression -> exp LT seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
 
 
 state 122
 
-    (42) exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .
+    (42) expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .
 
-    GT              reduce using rule 42 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    LT              reduce using rule 42 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    NE              reduce using rule 42 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    PLUS            reduce using rule 42 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    MINUS           reduce using rule 42 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    RPAREN          reduce using rule 42 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    COMMA           reduce using rule 42 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    SEMICOLON       reduce using rule 42 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    RPAREN          reduce using rule 42 (expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
+    COMMA           reduce using rule 42 (expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
+    SEMICOLON       reduce using rule 42 (expression -> exp NE seen_exp_GT_LT_NE exp seen_exp_quad_G_L_N .)
 
 
 state 123
 
-    (43) exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .
+    (46) exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .
 
-    GT              reduce using rule 43 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    LT              reduce using rule 43 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    NE              reduce using rule 43 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    PLUS            reduce using rule 43 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    MINUS           reduce using rule 43 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    RPAREN          reduce using rule 43 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    COMMA           reduce using rule 43 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
-    SEMICOLON       reduce using rule 43 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    GT              reduce using rule 46 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    LT              reduce using rule 46 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    NE              reduce using rule 46 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    PLUS            reduce using rule 46 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    MINUS           reduce using rule 46 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    RPAREN          reduce using rule 46 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    COMMA           reduce using rule 46 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    SEMICOLON       reduce using rule 46 (exp -> exp PLUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
 
 
 state 124
 
-    (47) term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .
+    (47) exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .
 
-    TIMES           reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    DIVIDE          reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    GT              reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    LT              reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    NE              reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    PLUS            reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    MINUS           reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    RPAREN          reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    COMMA           reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    SEMICOLON       reduce using rule 47 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    GT              reduce using rule 47 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    LT              reduce using rule 47 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    NE              reduce using rule 47 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    PLUS            reduce using rule 47 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    MINUS           reduce using rule 47 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    RPAREN          reduce using rule 47 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    COMMA           reduce using rule 47 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
+    SEMICOLON       reduce using rule 47 (exp -> exp MINUS seen_exp_PLUS_MINUS term seen_exp_quad_P_M .)
 
 
 state 125
 
-    (48) term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .
+    (51) term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .
 
-    TIMES           reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    DIVIDE          reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    GT              reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    LT              reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    NE              reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    PLUS            reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    MINUS           reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    RPAREN          reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    COMMA           reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
-    SEMICOLON       reduce using rule 48 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    TIMES           reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    DIVIDE          reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    GT              reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    LT              reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    NE              reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    PLUS            reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    MINUS           reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    RPAREN          reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    COMMA           reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    SEMICOLON       reduce using rule 51 (term -> term TIMES seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
 
 
 state 126
 
-    (25) cycle -> DO body WHILE LPAREN expression RPAREN SEMICOLON .
+    (52) term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .
 
-    RBRACE          reduce using rule 25 (cycle -> DO body WHILE LPAREN expression RPAREN SEMICOLON .)
-    ID              reduce using rule 25 (cycle -> DO body WHILE LPAREN expression RPAREN SEMICOLON .)
-    IF              reduce using rule 25 (cycle -> DO body WHILE LPAREN expression RPAREN SEMICOLON .)
-    DO              reduce using rule 25 (cycle -> DO body WHILE LPAREN expression RPAREN SEMICOLON .)
-    PRINT           reduce using rule 25 (cycle -> DO body WHILE LPAREN expression RPAREN SEMICOLON .)
+    TIMES           reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    DIVIDE          reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    GT              reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    LT              reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    NE              reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    PLUS            reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    MINUS           reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    RPAREN          reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    COMMA           reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
+    SEMICOLON       reduce using rule 52 (term -> term DIVIDE seen_term_TIMES_DIVIDE factor seen_exp_quad_T_D .)
 
 
 state 127
 
-    (29) list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression . seen_print_quad_PRINT
-    (34) seen_print_quad_PRINT -> .
+    (27) cycle -> DO seen_start_cycle body WHILE LPAREN expression seen_cycle . RPAREN SEMICOLON
 
-    RPAREN          reduce using rule 34 (seen_print_quad_PRINT -> .)
-    COMMA           reduce using rule 34 (seen_print_quad_PRINT -> .)
+    RPAREN          shift and go to state 130
 
-    seen_print_quad_PRINT          shift and go to state 128
 
 state 128
 
-    (29) list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT .
+    (33) list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression . seen_print_quad_PRINT
+    (38) seen_print_quad_PRINT -> .
 
-    RPAREN          reduce using rule 29 (list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT .)
-    COMMA           reduce using rule 29 (list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT .)
+    RPAREN          reduce using rule 38 (seen_print_quad_PRINT -> .)
+    COMMA           reduce using rule 38 (seen_print_quad_PRINT -> .)
+
+    seen_print_quad_PRINT          shift and go to state 131
+
+state 129
+
+    (24) condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else . body SEMICOLON
+    (13) body -> . LBRACE return_statement RBRACE
+
+    LBRACE          shift and go to state 14
+
+    body                           shift and go to state 132
+
+state 130
+
+    (27) cycle -> DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 133
+
+
+state 131
+
+    (33) list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT .
+
+    RPAREN          reduce using rule 33 (list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT .)
+    COMMA           reduce using rule 33 (list_print_expression -> list_print_expression COMMA seen_print_PARINT_COMMA expression seen_print_quad_PRINT .)
+
+
+state 132
+
+    (24) condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body . SEMICOLON
+
+    SEMICOLON       shift and go to state 134
+
+
+state 133
+
+    (27) cycle -> DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON .
+
+    RBRACE          reduce using rule 27 (cycle -> DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON .)
+    ID              reduce using rule 27 (cycle -> DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON .)
+    IF              reduce using rule 27 (cycle -> DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON .)
+    DO              reduce using rule 27 (cycle -> DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON .)
+    PRINT           reduce using rule 27 (cycle -> DO seen_start_cycle body WHILE LPAREN expression seen_cycle RPAREN SEMICOLON .)
+
+
+state 134
+
+    (24) condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON .
+
+    RBRACE          reduce using rule 24 (condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON .)
+    ID              reduce using rule 24 (condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON .)
+    IF              reduce using rule 24 (condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON .)
+    DO              reduce using rule 24 (condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON .)
+    PRINT           reduce using rule 24 (condition -> IF LPAREN expression seen_condition_IF RPAREN body ELSE seen_condition_else body SEMICOLON .)
 
 WARNING: 
 WARNING: Conflicts:

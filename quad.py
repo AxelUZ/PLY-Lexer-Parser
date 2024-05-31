@@ -36,3 +36,7 @@ class Quad:
         quad = (operator, left_operand, right_operand, result)
         self.quads.append(quad)
         return quad
+
+    def fill(self, quad_index, fill_value):
+        operator, left_operand, _, result = self.quads[quad_index]
+        self.quads[quad_index] = (operator, left_operand, fill_value, result)

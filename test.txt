@@ -5,9 +5,15 @@ x,y: int;
 w,z: float;
 
 main {
-    x = 10 > 5;
-    print(x);
+    x = 10;
+    y = 5;
+    w = 2.5;
 
+    if (x > y) {
+         z = x + y;
+    } else {
+         print(w,x,y);
+    };
 }
 
 end

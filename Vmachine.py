@@ -11,8 +11,12 @@ def parse_program(file_path):
 def processor_quads(quads):
     #Diccionario para el manejo de la "memoria"
     memory_quads = {}
+    #apuntador de cuadriplos para gasos goto
+    quad_pointer = 0
+
     #Se itera la tupla quads y se descompone
-    for quad in quads:
+    while quad_pointer < len(quads):
+        quad = quads[quad_pointer]
         operator, left_operand, right_operand, result = quad
 
         #para obtener valor de los operandos (solo para ids obtener valor numerico)
@@ -22,29 +26,50 @@ def processor_quads(quads):
         if operator == '+':
             memory_quads[result] = left_value + right_value
             print(left_value, "+", right_value)
+            quad_pointer += 1
         elif operator == '-':
             memory_quads[result] = left_value - right_value
             print(left_value, "-", right_value)
+            quad_pointer += 1
         elif operator == '*':
             memory_quads[result] = left_value * right_value
             print(left_value, "*", right_value)
+            quad_pointer += 1
         elif operator == '/':
             memory_quads[result] = left_value / right_value
             print(left_value, "/", right_value)
+            quad_pointer += 1
         elif operator == '=':
             memory_quads[result] = left_value
             print(result, "=", left_value)
+            quad_pointer += 1
         elif operator == '>':
             memory_quads[result] = left_value > right_value
             print(left_value, ">", right_value)
+            quad_pointer += 1
         elif operator == '<':
             memory_quads[result] = left_value < right_value
             print(left_value, "<", right_value)
+            quad_pointer += 1
         elif operator == '!=':
             memory_quads[result] = left_value != right_value
             print(left_value, "!=", right_value)
+            quad_pointer += 1
         elif operator == 'print':
             print(memory_quads[result])
+            quad_pointer += 1
+        elif operator == 'GotoF':
+            quad_pointer += 1
+            quad_pointer = right_value
+            continue  # Saltar la impresion del cuadruplo
+        elif operator == 'Goto':
+            quad_pointer = right_value
+        elif operator == 'GotoV':
+            if left_value:  # Si la condición es verdadera
+                quad_pointer = right_value
+            else:
+                quad_pointer += 1
+            continue  # Saltar la impresión del cuádruplo en caso de salto
         else:
             raise ValueError(f"Unknown operator {operator}")
 
